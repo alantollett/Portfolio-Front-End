@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
+
+$background: rgb(250, 246, 250);
+$primary: rgb(82, 189, 175);
+$secondary: rgb(187, 187, 187);
+$error: rgb(232, 144, 147); 
+
+body{
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    background-color: $background;
+    color: $primary;
+}

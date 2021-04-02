@@ -27,7 +27,7 @@ export default class LoginForm extends React.Component {
 
         // post the form data to /login.
         // the result is a json web token which represents the full user object.
-        axios.post(`http://localhost:5000/login`, {user}, {crossDomain: false})
+        axios.post(`http://localhost:80/login`, {user}, {crossDomain: false})
         .then((res) => {
             setToken(res.data.accessToken);
             displaySuccess('Logged in successfully!');

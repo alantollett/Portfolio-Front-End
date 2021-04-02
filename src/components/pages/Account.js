@@ -11,11 +11,15 @@ export default class Account extends React.Component {
 
         if(user){
             return (
-                <h1>Loading Dashboard...</h1>
+                <div className="wrapper">
+                    <h1>Loading Dashboard...</h1>
+                </div>
             );
         }else{
             return (
-                <h1>Please Login or Register for an Account</h1>
+                <div className="wrapper">
+                    <h1>Please Login or Register for an Account</h1>
+                </div>
             );
         }
 

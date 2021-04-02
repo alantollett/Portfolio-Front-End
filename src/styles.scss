@@ -5,6 +5,9 @@ $primary: rgb(42, 233, 240);
 $secondary: rgb(150, 253, 172);
 $error: rgb(221, 65, 70); 
 
+$small: 400px;
+$large: 1280px;
+
 body{
     margin: 0;
     font-family: 'Open Sans', sans-serif;
@@ -22,6 +25,19 @@ body{
 
 .active {
     color: aqua;
+}
+
+.wrapper {
+    margin: auto;
+    max-width: 1200px;    
+
+    @media screen and (min-width: $small) {
+        width: 95%;
+    }
+
+    @media screen and (min-width: $large) {
+        width: 80%;
+    }
 }
 
 nav {

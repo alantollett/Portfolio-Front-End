@@ -56,3 +56,28 @@ nav {
         color: lightskyblue;
     }
 }
+
+.account {
+    margin-top: 2em;
+
+    .grid {
+        display: grid;
+        justify-items: center;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+
+        .grid-item{
+            width: 330px;
+            margin-bottom: 20px;
+            background-color: grey;
+            border-radius: 1em;
+            text-align: center;
+
+            h1{
+                font-size: 1.5em;
+                margin: 0.5em 0em;
+            }
+
+            
+        }
+    }
+}

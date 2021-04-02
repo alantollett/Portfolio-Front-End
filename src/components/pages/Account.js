@@ -17,8 +17,15 @@ export default class Account extends React.Component {
             );
         }else{
             return (
-                <div className="wrapper">
-                    <h1>Please Login or Register for an Account</h1>
+                <div className="account wrapper">
+                    <div className="grid">
+                        <div className="grid-item">
+                            <h1>Login</h1>
+                        </div>
+                        <div className="grid-item">
+                            <h1>Register</h1>
+                        </div>
+                    </div>
                 </div>
             );
         }

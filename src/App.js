@@ -31,16 +31,19 @@ export default class App extends React.Component {
 
             var expectedReturns = [];
             var standardDeviations = [];
+            var expectedDividendYields = [];
 
             portfolios.forEach(portfolio => {
                 expectedReturns.push(-portfolio.expectedReturn); // remove minus
                 standardDeviations.push(portfolio.standardDeviation);
+                expectedDividendYields.push(portfolio.expectedDividendYield);
             });
 
             this.setState({
                 portfolios: portfolios,
                 expectedReturns: expectedReturns,
-                standardDeviations: standardDeviations
+                standardDeviations: standardDeviations,
+                expectedDividendYields: expectedDividendYields
             });
         }).catch(err => {
             this.setState({error: err});
@@ -74,7 +77,7 @@ export default class App extends React.Component {
     }
 
     render = () => {
-        const {error, portfolios, expectedReturns, standardDeviations, user, errorMessage, successMessage, page} = this.state;
+        const {error, portfolios, expectedReturns, standardDeviations, expectedDividendYields, user, errorMessage, successMessage, page} = this.state;
         
         return (
             <>
@@ -107,6 +110,7 @@ export default class App extends React.Component {
                     portfolios={portfolios} 
                     expectedReturns={expectedReturns} 
                     standardDeviations={standardDeviations}
+                    expectedDividendYields={expectedDividendYields}
                 />
             :null}
             </>

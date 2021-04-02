@@ -8,7 +8,7 @@ export default class DashboardPage extends React.Component {
     }
 
     render = () => {
-        const {error, portfolios, expectedReturns, standardDeviations} = this.props;
+        const {error, portfolios, expectedReturns, standardDeviations, expectedDividendYields} = this.props;
 
         return (
             <div className="dashboard wrapper">
@@ -17,6 +17,7 @@ export default class DashboardPage extends React.Component {
                     portfolios={portfolios} 
                     expectedReturns={expectedReturns} 
                     standardDeviations={standardDeviations}
+                    expectedDividendYields={expectedDividendYields}
                 />
             </div>
         );

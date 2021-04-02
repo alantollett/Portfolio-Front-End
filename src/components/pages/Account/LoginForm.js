@@ -17,7 +17,7 @@ export default class LoginForm extends React.Component {
     
     loginUser = (e) => {
         e.preventDefault();
-        const {displayError, displaySuccess, setToken, openPage} = this.props;
+        const {displayError, setToken, openPage} = this.props;
 
         // create a user object from the form
         const user = {

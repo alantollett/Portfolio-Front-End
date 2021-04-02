@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import Navigation from './components/Navigation';
 import AccountPage from './components/pages/Account/AccountPage';
-import Graph from './components/Graph';
 import jwt_decode from 'jwt-decode';
+import DashboardPage from './components/pages/Dashboard/DashboardPage';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -102,14 +102,12 @@ export default class App extends React.Component {
             : null}
 
             {page == "dashboard" ? 
-                <div className="graph-container">
-                    <Graph className="graph"
-                        error={error} 
-                        portfolios={portfolios} 
-                        expectedReturns={expectedReturns} 
-                        standardDeviations={standardDeviations}
-                    />
-                </div>
+                <DashboardPage                    
+                    error={error} 
+                    portfolios={portfolios} 
+                    expectedReturns={expectedReturns} 
+                    standardDeviations={standardDeviations}
+                />
             :null}
             </>
         )

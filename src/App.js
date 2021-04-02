@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import Plot from 'react-plotly.js';
+import Navigation from './components/Navigation';
+import Account from './components/pages/Account';
+import Graph from './components/Graph';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -8,8 +10,10 @@ export default class App extends React.Component {
         this.state = {
             error: null,
             portfolios: null,
-            expectedReturns: null,    // stored seperately for ease
-            standardDeviations: null  // of use in the scatter plot
+            expectedReturns: null,
+            standardDeviations: null,
+            user: null,
+            pageVisible: "Account",
         };
     }
 
@@ -36,27 +40,14 @@ export default class App extends React.Component {
     }
 
     render = () => {
-        const {error, portfolios, expectedReturns, standardDeviations} = this.state;
-
-        if(error){
-            return <div>{error.message}</div>
-        }else if(!portfolios){
-            return <div>Downloading Stock Data...</div>
-        }else{
-            return (
-                <Plot
-                    data={[
-                        {
-                            x: standardDeviations,
-                            y: expectedReturns,
-                            type: 'scatter',
-                            mode: 'markers',
-                            marker: {color: 'red'},
-                        }
-                    ]}
-                    layout={ {width: 500, height: 500, title: 'Efficient Frontier'} }
-                />
-            );
-        }
+        const {error, portfolios, expectedReturns, standardDeviations, user} = this.state;
+        
+        return (
+            <>
+            <Navigation user={user}/>
+            <Account user={user}/>
+            {/* <Graph error={error} portfolios={portfolios} expectedReturns={expectedReturns} standardDeviations={standardDeviations}/> */}
+            </>
+        )
     }
 }

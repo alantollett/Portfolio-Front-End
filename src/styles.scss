@@ -11,3 +11,32 @@ body{
     background-color: $background;
     color: $primary;
 }
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.active {
+    color: aqua;
+}
+
+nav {
+    overflow: hidden;
+    background-color: black;
+
+    button {
+        border: none;
+        padding: 1em 2em;
+        color: white;
+        background-color: black;
+        font-weight: 600;
+    }
+
+    button:hover {
+        color: lightskyblue;
+    }
+}

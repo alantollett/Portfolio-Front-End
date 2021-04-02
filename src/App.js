@@ -26,7 +26,7 @@ export default class App extends React.Component {
     }
 
     componentDidMount(){
-        axios.get('http://localhost:5000/').then(res => {
+        axios.get('http://localhost:80/').then(res => {
             var portfolios = res.data;
 
             var expectedReturns = [];

@@ -15,7 +15,7 @@ export default class AccountPage extends React.Component {
             <div className="account wrapper">
                 <div className="grid">
                     <LoginForm setToken={setToken} displayError={displayError} displaySuccess={displaySuccess}/>
-                    <RegisterForm/>
+                    <RegisterForm displayError={displayError} displaySuccess={displaySuccess}/>
                 </div>
             </div>
         );

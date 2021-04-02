@@ -17,7 +17,7 @@ export default class Graph extends React.Component {
             return <div>Downloading Stock Data...</div>
         }else{
             return (
-                <Plot
+                <Plot className="graph"
                     data={[
                         {
                             x: standardDeviations,

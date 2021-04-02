@@ -17,7 +17,7 @@ export default class LoginForm extends React.Component {
     
     loginUser = (e) => {
         e.preventDefault();
-        const {displayError, displaySuccess, setToken} = this.props;
+        const {displayError, displaySuccess, setToken, openPage} = this.props;
 
         // create a user object from the form
         const user = {
@@ -30,7 +30,8 @@ export default class LoginForm extends React.Component {
         axios.post(`http://localhost:80/login`, {user}, {crossDomain: false})
         .then((res) => {
             setToken(res.data.accessToken);
-            displaySuccess('Logged in successfully!');
+            // displaySuccess('Logged in successfully!');
+            openPage('dashboard');
         }).catch(err => {
             const status = err.response.status;
             if(status === 404 || status === 401){

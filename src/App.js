@@ -14,7 +14,7 @@ export default class App extends React.Component {
             expectedReturns: null,
             standardDeviations: null,
 
-            pageVisible: "Account",
+            page: "account",
             errorMessage: null,
             successMessage: null,
             
@@ -47,6 +47,10 @@ export default class App extends React.Component {
         });
     }
 
+    openPage = (page) => {
+        this.setState({page: page});
+    }
+
     // updates the state to hold a JWT and the object decoded by it (user)
     // once updated, we can load the data (as we need a valid JWT to access it)
     setToken = (token) => {
@@ -70,17 +74,17 @@ export default class App extends React.Component {
     }
 
     render = () => {
-        const {error, portfolios, expectedReturns, standardDeviations, user, errorMessage, successMessage} = this.state;
+        const {error, portfolios, expectedReturns, standardDeviations, user, errorMessage, successMessage, page} = this.state;
         
         return (
             <>
-            <Navigation user={user}/>
+            <Navigation user={user} openPage={this.openPage}/>
 
             {errorMessage ? (
-                    <div className="error">
-                        <div className="wrapper"><p>{errorMessage}</p></div>
-                    </div>
-                ) : null}
+                <div className="error">
+                    <div className="wrapper"><p>{errorMessage}</p></div>
+                </div>
+            ) : null}
 
             {successMessage ? (
                 <div className="success">
@@ -88,8 +92,25 @@ export default class App extends React.Component {
                 </div>
             ) : null}
 
-            <AccountPage setToken={this.setToken} displayError={this.displayError} displaySuccess={this.displaySuccess} />
-            {/* <Graph error={error} portfolios={portfolios} expectedReturns={expectedReturns} standardDeviations={standardDeviations}/> */}
+            {page == "account" ? 
+                <AccountPage 
+                    setToken={this.setToken} 
+                    displayError={this.displayError} 
+                    displaySuccess={this.displaySuccess} 
+                    openPage={this.openPage}
+                /> 
+            : null}
+
+            {page == "dashboard" ? 
+                <div className="graph-container">
+                    <Graph className="graph"
+                        error={error} 
+                        portfolios={portfolios} 
+                        expectedReturns={expectedReturns} 
+                        standardDeviations={standardDeviations}
+                    />
+                </div>
+            :null}
             </>
         )
     }

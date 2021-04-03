@@ -24,36 +24,38 @@ export default class Graph extends React.Component {
                     data={[
                         {
                             x: standardDeviations,
-                            y: expectedReturns,
-                            z: expectedDividendYields,
+                            y: expectedDividendYields,
+                            z: expectedReturns,
                             text: hoverTexts,
                             type: 'scatter3d',
                             mode: 'markers',
                             marker: {color: 'red', size: 5},
-                            hovertemplate: "<b>Expected Return: %{y}%</b><br>"
+                            hovertemplate: "<b>Expected Return: %{z}%</b><br>"
                                 + "<b>Standard Deviation: %{x}%</b><br>"
-                                + "<b>Expected Dividend Yield: %{z}%</b><br>"
+                                + "<b>Expected Dividend Yield: %{y}%</b><br>"
                                 + "%{text}"
                                 + "<extra></extra>"
                         }
                     ]}
                     layout={{
-                        width: 600, 
-                        height: 600, 
+                        // width: 600, 
+                        // height: 600, 
                         title: 'Efficient Frontier',
                         scene: {
                             xaxis: { title: "Standard Deviation (%)",},
-                            yaxis: { title: "Expected Return (%)" },   
-                            zaxis: { title: "Expected Dividend Yield (%)" },  
+                            yaxis: { title: "Expected Dividend Yield (%)" },  
+                            zaxis: { title: "Expected Return (%)" },   
                             camera: {
-                                eye: {x: 1.75, y: 1.75, z: 0.1}
+                                center: {x: 0, y: 0, z: -0.2},
+                                eye: {x: 1.3, y: 1.3, z: 0.1}
                             }
                         },      
                         margin: {l: 0, r: 0, b: 0, t: 0},
                         hovermode: 'closest',
                         hoverlabel: { bgcolor: "#FFF" },
-                        // config: { responsive: true }
+                        config: { responsive: true },
                     }}
+                    config={{displayModeBar: false}}
                 />
             );
         }

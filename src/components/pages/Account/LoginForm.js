@@ -30,7 +30,6 @@ export default class LoginForm extends React.Component {
         axios.post(`http://localhost:80/login`, {user}, {crossDomain: false})
         .then((res) => {
             setToken(res.data.accessToken);
-            // displaySuccess('Logged in successfully!');
             openPage('dashboard');
         }).catch(err => {
             const status = err.response.status;

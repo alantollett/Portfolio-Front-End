@@ -81,7 +81,7 @@ export default class App extends React.Component {
         
         return (
             <>
-            <Navigation user={user} openPage={this.openPage}/>
+            <Navigation user={user} openPage={this.openPage} page={page}/>
 
             {errorMessage ? (
                 <div className="error">
@@ -95,7 +95,7 @@ export default class App extends React.Component {
                 </div>
             ) : null}
 
-            {page == "account" ? 
+            {page === "account" ? 
                 <AccountPage 
                     setToken={this.setToken} 
                     displayError={this.displayError} 
@@ -104,7 +104,7 @@ export default class App extends React.Component {
                 /> 
             : null}
 
-            {page == "dashboard" ? 
+            {page === "dashboard" ? 
                 <DashboardPage                    
                     error={error} 
                     portfolios={portfolios} 

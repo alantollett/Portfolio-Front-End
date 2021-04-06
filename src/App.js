@@ -4,6 +4,7 @@ import Navigation from './components/Navigation';
 import AccountPage from './components/pages/Account/AccountPage';
 import jwt_decode from 'jwt-decode';
 import DashboardPage from './components/pages/Dashboard/DashboardPage';
+import HomePage from './components/pages/HomePage';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -14,7 +15,7 @@ export default class App extends React.Component {
             expectedReturns: null,
             standardDeviations: null,
 
-            page: "account",
+            page: "home",
             errorMessage: null,
             successMessage: null,
             
@@ -54,10 +55,14 @@ export default class App extends React.Component {
         this.setState({page: page});
     }
 
+    logout = () => {
+        this.setState({token: null, user: null, page: "home"});
+    }
+
     // updates the state to hold a JWT and the object decoded by it (user)
     // once updated, we can load the data (as we need a valid JWT to access it)
     setToken = (token) => {
-        this.setState({token: token, user: jwt_decode(token), loginPage: false, accountPage: true});
+        this.setState({token: token, user: jwt_decode(token)});
     }
 
     displayError = (message) => {
@@ -81,7 +86,7 @@ export default class App extends React.Component {
         
         return (
             <>
-            <Navigation user={user} openPage={this.openPage} page={page}/>
+            <Navigation user={user} openPage={this.openPage} page={page} logout={this.logout}/>
 
             {errorMessage ? (
                 <div className="error">
@@ -94,6 +99,10 @@ export default class App extends React.Component {
                     <div className="wrapper"><p>{successMessage}</p></div>
                 </div>
             ) : null}
+
+            {page === "home" ? 
+                <HomePage/>
+            : null}
 
             {page === "account" ? 
                 <AccountPage 

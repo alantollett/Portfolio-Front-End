@@ -3,7 +3,7 @@ import axios from 'axios';
 import Navigation from './components/Navigation';
 import AccountPage from './components/pages/Account/AccountPage';
 import jwt_decode from 'jwt-decode';
-import DashboardPage from './components/pages/Dashboard/DashboardPage';
+import OptimisePage from './components/pages/Optimise/OptimisePage';
 import HomePage from './components/pages/HomePage';
 
 export default class App extends React.Component {
@@ -113,8 +113,8 @@ export default class App extends React.Component {
                 /> 
             : null}
 
-            {page === "dashboard" ? 
-                <DashboardPage                    
+            {page === "optimise" ? 
+                <OptimisePage                    
                     error={error} 
                     portfolios={portfolios} 
                     expectedReturns={expectedReturns} 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Graph from './Graph';
 
-export default class DashboardPage extends React.Component {
+export default class OptimisePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = { };
@@ -11,7 +11,7 @@ export default class DashboardPage extends React.Component {
         const {error, portfolios, expectedReturns, standardDeviations, expectedDividendYields} = this.props;
 
         return (
-            <div className="dashboard wrapper">
+            <div className="optimise wrapper">
                 <Graph className="graph"
                     error={error} 
                     portfolios={portfolios} 

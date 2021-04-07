@@ -1,10 +1,12 @@
 import React from 'react';
 import axios from 'axios';
-import Navigation from './components/Navigation';
-import AccountPage from './components/pages/Account/AccountPage';
 import jwt_decode from 'jwt-decode';
-import OptimisePage from './components/pages/Optimise/OptimisePage';
+
+import Navigation from './components/Navigation';
 import HomePage from './components/pages/HomePage';
+import AccountPage from './components/pages/Account/AccountPage';
+import DashboardPage from './components/pages/Dashboard/DashboardPage';
+import OptimisePage from './components/pages/Optimise/OptimisePage';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -111,6 +113,10 @@ export default class App extends React.Component {
                     displaySuccess={this.displaySuccess} 
                     openPage={this.openPage}
                 /> 
+            : null}
+
+            {page === "dashboard" ? 
+                <DashboardPage/> 
             : null}
 
             {page === "optimise" ? 

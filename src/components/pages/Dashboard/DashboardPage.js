@@ -7,10 +7,22 @@ export default class DashboardPage extends React.Component {
     }
 
     render = () => {
+        const invested = 900.53;
+        const value = 901.53;
 
         return (
             <div className="dashboard wrapper">
-                <h1>Dashboard Page</h1>
+                <div className="value">
+                    {/* for each ticker (value += num shares * currentSharePrice) */}
+                    <span>£{value}</span>
+                    
+                    {value - invested >= 0 ? 
+                        <p className="increase">Up By £{value - invested} since you began investing.</p>
+                    :
+                        <p className="decrease">Down By £{invested - value} since you began investing.</p>
+                    }
+                    
+                </div>
             </div>
         );
     }

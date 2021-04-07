@@ -128,3 +128,24 @@ nav {
     margin-top: 2em;
     text-align: center;
 }
+
+.dashboard {
+    margin-top: 2em;
+
+    .value {
+        font-size: 1em;
+
+        span{
+            font-size: 2em;
+        }
+
+    }
+}
+
+.increase {
+    color: green;
+}
+
+.decrease {
+    color: red;
+}

@@ -26,17 +26,19 @@ export default class PortfolioPage extends React.Component {
         }else{
             return (
                 <div className="portfolio wrapper">
+                    <h1>My Portfolio</h1>
+
                     <PortfolioValue user={user} prices={prices}/>
     
                     <div className="ranges">
                         <button onClick={() => this.changeRange('d')} className={range === 'd' ? "active" : "inactive"}>1D</button>
                         <button onClick={() => this.changeRange('w')} className={range === 'w' ? "active" : "inactive"}>1W</button>
                         <button onClick={() => this.changeRange('m')} className={range === 'm' ? "active" : "inactive"}>1M</button>
-                        <button onClick={() => this.changeRange('y')} className={range === 'y' ? "active" : "inactive"}>1D</button>
+                        <button onClick={() => this.changeRange('y')} className={range === 'y' ? "active" : "inactive"}>1Y</button>
                         <button onClick={() => this.changeRange('max')} className={range === 'max' ? "active" : "inactive"}>MAX</button>
                     </div>
                     
-                    <PortfolioGraph/>
+                    <PortfolioGraph user={user} range={range}/>
                 </div>
             );
         }

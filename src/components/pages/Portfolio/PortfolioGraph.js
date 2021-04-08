@@ -8,19 +8,55 @@ export default class PortfolioGraph extends React.Component {
     }
 
     render = () => {
-        const values = [800.00, 823.13, 891.22, 903.11];
-        const dates = ['2021-01-31', '2021-02-28', '2021-03-31', '2021-04-08'];
+        var {user, range} = this.props;
+
+        // get the minimum date of visible worth data points based upon range
+        var minDate = new Date();
+        minDate.setHours(0);
+        minDate.setMinutes(0);
+        minDate.setSeconds(0);
+
+        if(range === 'w'){
+            const daysAfterMonday = minDate.getDay() - 1;
+            minDate.setDate(minDate.getDate() - daysAfterMonday);
+        } else if(range === 'm'){
+            const daysAfterFirst = minDate.getDate() - 1;
+            minDate.setDate(minDate.getDate() - daysAfterFirst);
+        } else if(range === 'y'){
+            minDate.setMonth(0);
+            minDate.setDate(1);
+        }
+
+        // set min date to start of user's account if range is too high
+        if(range === 'max'){
+            minDate = new Date(user.worths[0].date);
+        }
+
+        var worths = user.worths.filter(worth => {
+            const worthDate = new Date(worth.date);
+
+            // filter if value is from the weekend...
+            if(worthDate.getDay() == 0 || worthDate.getDay() == 6){
+                return false;
+            }
+
+            // filter if out of the specified range
+            return (worthDate >= minDate);
+        });
+
+        var dates = worths.map(worth => worth.date);
+        var amounts = worths.map(worth => worth.amount);
 
         return (
             <Plot className="graph"
                 data={[
                     {
                         x: dates,
-                        y: values,
+                        y: amounts,
                         type: 'scatter',
-                        mode: 'lines',
-                        text: values,
-                        hovertemplate: "<b>£%{y}</b>"
+                        mode: 'markers&lines',
+                        text: amounts,
+                        hovertemplate: "<b>%{x}<br>£%{y}</b>"
                         + "<extra></extra>"
                     }
                 ]}

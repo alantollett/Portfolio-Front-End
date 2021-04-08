@@ -5,7 +5,7 @@ $primary: rgb(42, 233, 240);
 $secondary: rgb(150, 253, 172);
 $error: rgb(221, 65, 70); 
 
-$small: 600px;
+$small: 700px;
 $large: 1280px;
 
 body{
@@ -24,7 +24,12 @@ body{
 }
 
 .active {
+    font-weight: 600;
     color: aqua;
+}
+
+.inactive {
+    color: black;
 }
 
 .wrapper {
@@ -150,7 +155,11 @@ nav {
         }
 
         button {
+            width: 4em;
+            background-color: grey;
             padding: 0.25em 0.5em;
+            border: none;
+            border-right: 1px solid white;
         }
     }
 

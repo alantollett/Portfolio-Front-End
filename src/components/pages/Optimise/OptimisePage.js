@@ -1,5 +1,5 @@
 import React from 'react';
-import Graph from './Graph';
+import Graph from './OptimiseGraph';
 
 export default class OptimisePage extends React.Component {
     constructor(props) {

@@ -5,7 +5,7 @@ $primary: rgb(42, 233, 240);
 $secondary: rgb(150, 253, 172);
 $error: rgb(221, 65, 70); 
 
-$small: 400px;
+$small: 600px;
 $large: 1280px;
 
 body{
@@ -31,13 +31,14 @@ body{
     margin: auto;
     max-width: 1200px;    
 
-    @media screen and (min-width: $small) {
+    @media screen and (max-width: $large) {
+        width: 85%;
+    }
+
+    @media screen and (max-width: $small) {
         width: 95%;
     }
 
-    @media screen and (min-width: $large) {
-        width: 80%;
-    }
 }
 
 .error, .success {
@@ -62,7 +63,7 @@ nav {
 
     button {
         border: none;
-        padding: 1em 2em;
+        padding: 1em 1.25em;
         color: white;
         background-color: black;
         font-weight: 600;
@@ -123,22 +124,38 @@ nav {
 
 // surround in .dashboard, ...
 .optimise {
-    width: 100%;
-    margin: auto;
     margin-top: 2em;
-    text-align: center;
 }
 
 .portfolio {
     margin-top: 2em;
 
     .value {
-        font-size: 1em;
+        h1, p {
+            margin: 0;
+            padding: 0;
+            display: inline;
+        }
+    }
 
-        span{
-            font-size: 2em;
+    .ranges {
+        display: inline;
+        float: right;
+        margin-top: -1.75em;
+    
+        @media screen and (max-width: $small) {
+            display: block;
+            margin-top: 0;
+            float: none;
         }
 
+        button {
+            padding: 0.25em 0.5em;
+        }
+    }
+
+    .graph {
+        margin-top: 0.25em;
     }
 }
 

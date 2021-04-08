@@ -1,5 +1,6 @@
 import React from 'react';
 import PortfolioValue from './PortfolioValue';
+import PortfolioGraph from './PortfolioGraph';
 
 export default class PortfolioPage extends React.Component {
     constructor(props) {
@@ -10,9 +11,17 @@ export default class PortfolioPage extends React.Component {
     render = () => {
         return (
             <div className="portfolio wrapper">
-                <div className="value">
-                    <PortfolioValue/>
+                <PortfolioValue/>
+
+                <div className="ranges">
+                    <button>1D</button>
+                    <button>1W</button>
+                    <button>1M</button>
+                    <button>1Y</button>
+                    <button>MAX</button>
                 </div>
+                
+                <PortfolioGraph/>
             </div>
         );
     }

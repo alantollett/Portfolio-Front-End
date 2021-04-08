@@ -7,19 +7,21 @@ export default class PortfolioValue extends React.Component {
     }
 
     render = () => {
-        const invested = 900.53;
-        const value = 901.53;
+        const invested = 800.00;
+        const value = 903.11;
+        const increase = (((value - invested) / invested) * 100).toFixed(2);
 
         return (
             <div className="value">
-                {/* for each ticker (value += num shares * currentSharePrice) */}
-                <span>£{value}</span>
-                
-                {value - invested >= 0 ? 
-                    <p className="increase">Up By £{value - invested} since you began investing.</p>
-                :
-                    <p className="decrease">Down By £{invested - value} since you began investing.</p>
-                }
+                <h1>£{value}</h1>
+                <p className={increase >= 0 ? "increase" : "decrease"}>
+                    {increase >= 0 ? 
+                        <span>Up by £{(value - invested).toFixed(2)} </span>
+                    :
+                        <span>Down by £{(invested - value).toFixed(2)} </span>
+                    }
+                    ({Math.abs(increase)}%)
+                </p>
             </div>
         );
     }

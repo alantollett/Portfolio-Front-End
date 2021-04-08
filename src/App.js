@@ -51,6 +51,12 @@ export default class App extends React.Component {
         }).catch(err => {
             this.setState({error: err});
         });
+
+        axios.get('http://localhost:80/prices').then(res => {
+            this.setState({ prices: res.data });
+        }).catch(err => {
+            this.setState({error: err});
+        });
     }
 
     openPage = (page) => {
@@ -64,7 +70,7 @@ export default class App extends React.Component {
     // updates the state to hold a JWT and the object decoded by it (user)
     // once updated, we can load the data (as we need a valid JWT to access it)
     setToken = (token) => {
-        this.setState({token: token, user: jwt_decode(token)});
+        this.setState({user: jwt_decode(token)});
     }
 
     displayError = (message) => {
@@ -84,7 +90,7 @@ export default class App extends React.Component {
     }
 
     render = () => {
-        const {error, portfolios, expectedReturns, standardDeviations, expectedDividendYields, user, errorMessage, successMessage, page} = this.state;
+        const {error, portfolios, expectedReturns, standardDeviations, expectedDividendYields, user, errorMessage, successMessage, page, prices} = this.state;
         
         return (
             <>
@@ -116,7 +122,7 @@ export default class App extends React.Component {
             : null}
 
             {page === "portfolio" ? 
-                <PortfolioPage/> 
+                <PortfolioPage error={error} prices={prices} user={user}/> 
             : null}
 
             {page === "optimise" ? 

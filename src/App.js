@@ -5,7 +5,7 @@ import jwt_decode from 'jwt-decode';
 import Navigation from './components/Navigation';
 import HomePage from './components/pages/HomePage';
 import AccountPage from './components/pages/Account/AccountPage';
-import DashboardPage from './components/pages/Dashboard/DashboardPage';
+import PortfolioPage from './components/pages/Portfolio/PortfolioPage';
 import OptimisePage from './components/pages/Optimise/OptimisePage';
 
 export default class App extends React.Component {
@@ -115,8 +115,8 @@ export default class App extends React.Component {
                 /> 
             : null}
 
-            {page === "dashboard" ? 
-                <DashboardPage/> 
+            {page === "portfolio" ? 
+                <PortfolioPage/> 
             : null}
 
             {page === "optimise" ? 

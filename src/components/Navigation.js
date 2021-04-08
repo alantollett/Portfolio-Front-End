@@ -1,4 +1,3 @@
-// pages: account, dashboard, investment, optimisation
 import React from 'react';
 
 export default class Navigation extends React.Component {
@@ -19,10 +18,9 @@ export default class Navigation extends React.Component {
                     <div className="right">
                         {user ? 
                             <>
-                            <button onClick={() => openPage("dashboard")} className={page === "dashboard" ? "active" : ""}>Dashboard</button>
-                            <button onClick={() => openPage("investments")} className={page === "investments" ? "active" : ""}>Investments</button>
-                            <button onClick={() => openPage("optimise")} className={page === "optimise" ? "active" : ""}>Optimise</button>
-                            <button onClick={() => logout()}>Logout</button>
+                                <button onClick={() => openPage("portfolio")} className={page === "portfolio" ? "active" : ""}>My Portfolio</button>
+                                <button onClick={() => openPage("optimise")} className={page === "optimise" ? "active" : ""}>Optimise</button>
+                                <button onClick={() => logout()}>Logout</button>
                             </>
                         : 
                             <button onClick={() => openPage("account")} className={page === "account" ? "active" : ""}>Login</button>

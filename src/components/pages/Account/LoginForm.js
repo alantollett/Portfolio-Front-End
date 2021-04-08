@@ -30,7 +30,7 @@ export default class LoginForm extends React.Component {
         axios.post(`http://localhost:80/login`, {user}, {crossDomain: false})
         .then((res) => {
             setToken(res.data.accessToken);
-            openPage('dashboard');
+            openPage('portfolio');
         }).catch(err => {
             const status = err.response.status;
             if(status === 404 || status === 401){

@@ -21,7 +21,7 @@ export default class DashboardPage extends React.Component {
                     :
                         <p className="decrease">Down By £{invested - value} since you began investing.</p>
                     }
-                    
+                    hi
                 </div>
             </div>
         );

@@ -1,5 +1,5 @@
 import React from 'react';
-import Graph from './OptimiseGraph';
+import OptimiseGraph from './OptimiseGraph';
 
 export default class OptimisePage extends React.Component {
     constructor(props) {
@@ -8,17 +8,9 @@ export default class OptimisePage extends React.Component {
     }
 
     render = () => {
-        const {error, portfolios, expectedReturns, standardDeviations, expectedDividendYields} = this.props;
-
         return (
             <div className="optimise wrapper">
-                <Graph className="graph"
-                    error={error} 
-                    portfolios={portfolios} 
-                    expectedReturns={expectedReturns} 
-                    standardDeviations={standardDeviations}
-                    expectedDividendYields={expectedDividendYields}
-                />
+                <OptimiseGraph className="graph"/>
             </div>
         );
     }

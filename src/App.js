@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
 import Navigation from './components/Navigation';
@@ -12,11 +11,6 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: null,
-            portfolios: null,
-            expectedReturns: null,
-            standardDeviations: null,
-
             page: "home",
             errorMessage: null,
             successMessage: null,
@@ -26,37 +20,6 @@ export default class App extends React.Component {
             token: null,
             user: null
         };
-    }
-
-    componentDidMount(){
-        axios.get('http://localhost:80/').then(res => {
-            var portfolios = res.data;
-
-            var expectedReturns = [];
-            var standardDeviations = [];
-            var expectedDividendYields = [];
-
-            portfolios.forEach(portfolio => {
-                expectedReturns.push(-portfolio.expectedReturn); // remove minus
-                standardDeviations.push(portfolio.standardDeviation);
-                expectedDividendYields.push(portfolio.expectedDividendYield);
-            });
-
-            this.setState({
-                portfolios: portfolios,
-                expectedReturns: expectedReturns,
-                standardDeviations: standardDeviations,
-                expectedDividendYields: expectedDividendYields
-            });
-        }).catch(err => {
-            this.setState({error: err});
-        });
-
-        axios.get('http://localhost:80/prices').then(res => {
-            this.setState({ prices: res.data });
-        }).catch(err => {
-            this.setState({error: err});
-        });
     }
 
     openPage = (page) => {
@@ -70,7 +33,7 @@ export default class App extends React.Component {
     // updates the state to hold a JWT and the object decoded by it (user)
     // once updated, we can load the data (as we need a valid JWT to access it)
     setToken = (token) => {
-        this.setState({user: jwt_decode(token)});
+        this.setState({token: token, user: jwt_decode(token)});
     }
 
     displayError = (message) => {
@@ -90,7 +53,7 @@ export default class App extends React.Component {
     }
 
     render = () => {
-        const {error, portfolios, expectedReturns, standardDeviations, expectedDividendYields, user, errorMessage, successMessage, page, prices} = this.state;
+        const {token, user, errorMessage, successMessage, page} = this.state;
         
         return (
             <>
@@ -122,17 +85,15 @@ export default class App extends React.Component {
             : null}
 
             {page === "portfolio" ? 
-                <PortfolioPage error={error} prices={prices} user={user}/> 
+                <PortfolioPage 
+                    user={user} 
+                    displaySuccess={this.displaySuccess} 
+                    token={token}
+                /> 
             : null}
 
             {page === "optimise" ? 
-                <OptimisePage                    
-                    error={error} 
-                    portfolios={portfolios} 
-                    expectedReturns={expectedReturns} 
-                    standardDeviations={standardDeviations}
-                    expectedDividendYields={expectedDividendYields}
-                />
+                <OptimisePage/>
             :null}
             </>
         )

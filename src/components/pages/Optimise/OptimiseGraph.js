@@ -1,32 +1,40 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
+import axios from 'axios';
 
-export default class Graph extends React.Component {
+export default class OptimiseGraph extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            error: null,
+            portfolios: null,
         };
     }
 
+    componentDidMount(){
+        axios.get('http://localhost:80/data/portfolios').then(res => {
+            this.setState({portfolios: res.data});
+        }).catch(err => {
+            this.setState({error: err});
+        });
+    }
+
     render = () => {
-        const {error, portfolios, expectedReturns, standardDeviations, expectedDividendYields} = this.props;
+        const {error, portfolios} = this.state;
 
         if(error){
             return <div>{error.message}</div>
         }else if(!portfolios){
-            return <div>Downloading Stock Data...</div>
+            return <div className="loading">Downloading Stock Data...</div>
         }else{
-            var hoverTexts = [];
-            portfolios.forEach(portfolio => hoverTexts.push(portfolio.asString));
-
             return (
                 <Plot className="graph"
                     data={[
                         {
-                            x: standardDeviations,
-                            y: expectedDividendYields,
-                            z: expectedReturns,
-                            text: hoverTexts,
+                            x: portfolios.map(portfolio => portfolio.standardDeviation),
+                            y: portfolios.map(portfolio => portfolio.expectedDividendYield),
+                            z: portfolios.map(portfolio => portfolio.expectedReturn),
+                            text: portfolios.map(portfolio => portfolio.asString),
                             type: 'scatter3d',
                             mode: 'markers',
                             marker: {color: 'red', size: 5},

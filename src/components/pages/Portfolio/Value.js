@@ -1,33 +1,18 @@
 import React from 'react';
 
-export default class PortfolioValue extends React.Component {
+export default class Value extends React.Component {
     constructor(props) {
         super(props);
         this.state = { };
     }
 
-    getAmntInvested = (user, prices) => {
-        return 100;
-    }
-
-    getCurrentValue = (user, prices) => {
-        var currValue = 0;
-
-        for(var investment of user.investments) {
-            const currentPrice = prices[investment.ticker][0].close;
-            currValue += investment.numShares * currentPrice;
-        };
-
-        return currValue;
-    }
-
     render = () => {
-        const {user, prices} = this.props;
+        const {user} = this.props;
 
         if(user.worths.length === 0){
             return (
                 <div className="value">
-                    <h1>£0</h1>
+                    <h1>$0</h1>
                     <p>No data yet...</p>
                 </div>
             );
@@ -39,12 +24,12 @@ export default class PortfolioValue extends React.Component {
 
         return (
             <div className="value">
-                <h1>£{currWorth}</h1>
+                <h1>${currWorth}</h1>
                 <p className={increase >= 0 ? "increase" : "decrease"}>
                     {increase >= 0 ? 
-                        <span>Up by £{(currWorth - startWorth).toFixed(2)} </span>
+                        <span>Up by ${(currWorth - startWorth).toFixed(2)} </span>
                     :
-                        <span>Down by £{(startWorth - currWorth).toFixed(2)} </span>
+                        <span>Down by ${(startWorth - currWorth).toFixed(2)} </span>
                     }
                     ({Math.abs(increase)}%)
                 </p>

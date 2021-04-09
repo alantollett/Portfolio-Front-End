@@ -36,7 +36,7 @@ export default class PortfolioGraph extends React.Component {
             const worthDate = new Date(worth.date);
 
             // filter if value is from the weekend...
-            if(worthDate.getDay() == 0 || worthDate.getDay() == 6){
+            if(worthDate.getDay() === 0 || worthDate.getDay() === 6){
                 return false;
             }
 

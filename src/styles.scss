@@ -135,6 +135,10 @@ nav {
 .portfolio {
     margin-top: 2em;
 
+    h1 {
+        margin: 0;
+    }
+
     .value {
         h1, p {
             margin: 0 0.25em 0 0;
@@ -169,6 +173,63 @@ nav {
 
     .graph {
         margin-top: 0.25em;
+        margin-bottom: 2em;
+    }
+
+    .investments {
+
+        h1 {
+            display: inline;
+        }
+
+        .buttons {
+            display: inline;
+            float: right;
+        
+            @media screen and (max-width: $small) {
+                display: block;
+                margin-top: 0;
+                float: none;
+            }
+    
+            button {
+                font-size: 1em;
+                margin-left: 1em;
+                background-color: aqua;
+                color: white;
+                font-weight: 600;
+                padding: 0.5em 1em;
+                border: none;
+                border-right: 1px solid white;
+            }
+
+            button:hover{
+                color: blue;
+            }
+        }
+
+        table {
+            width: 100%;
+            text-align: left;
+            color: black;
+            border-collapse: collapse;
+    
+            th{
+                background-color: aqua;
+            }
+    
+            tr{
+                background-color: lightblue;
+            }
+    
+            tr:nth-child(even) {
+                background-color: white;
+            }
+    
+            td, th {
+                 padding: 0.5em 1em;
+            }
+        }
     }
 }
 

@@ -38,7 +38,7 @@ export default class RegisterForm extends React.Component {
 
         // post the form data to /register.
         // the server then sends an email to the user with a verification link.
-        axios.post(`http://localhost:80/register`, {user}, {crossDomain: false})
+        axios.post(`http://localhost:80/user/register`, {user}, {crossDomain: false})
         .then((res) => {
             displaySuccess('Please check your email to verify your account.');
         }).catch(err => {

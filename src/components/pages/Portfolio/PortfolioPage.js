@@ -2,7 +2,6 @@ import React from 'react';
 import Value from './Value';
 import PortfolioGraph from './PortfolioGraph';
 import Investments from './Investments';
-import axios from 'axios';
 
 export default class PortfolioPage extends React.Component {
     constructor(props) {

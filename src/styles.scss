@@ -177,7 +177,6 @@ nav {
     }
 
     .investments {
-
         h1 {
             display: inline;
         }
@@ -185,6 +184,7 @@ nav {
         .buttons {
             display: inline;
             float: right;
+            margin-top: 1em;
         
             @media screen and (max-width: $small) {
                 display: block;
@@ -193,12 +193,9 @@ nav {
             }
     
             button {
-                font-size: 1em;
-                margin-left: 1em;
-                background-color: aqua;
-                color: white;
-                font-weight: 600;
-                padding: 0.5em 1em;
+                width: 10em;
+                background-color: grey;
+                padding: 0.25em 0.5em;
                 border: none;
                 border-right: 1px solid white;
             }
@@ -209,11 +206,16 @@ nav {
         }
 
         table {
-            width: 100%;
+            margin-top: 0.25em;
+            margin-bottom: 2em;
+
+            display: block;
+            overflow-x: auto;
+
             text-align: left;
             color: black;
             border-collapse: collapse;
-    
+
             th{
                 background-color: aqua;
             }

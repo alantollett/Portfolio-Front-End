@@ -53,7 +53,7 @@ export default class OptimiseGraph extends React.Component {
                             zaxis: { title: "Expected Return (%)" },   
                             camera: {
                                 // change these based upon window width...?
-                                center: {x: 0, y: 0, z: -0.2},
+                                center: {x: 0.05, y: 0, z: -0.2},
                                 eye: {x: 1.3, y: 1.3, z: 0.1}
                             }
                         },      
@@ -64,7 +64,7 @@ export default class OptimiseGraph extends React.Component {
 
                     useResizeHandler={true}
                     config={{displayModeBar: false}}
-                    style={{width: '100%'}}
+                    style={{margin: 'auto', width: '100%', maxWidth: '600px', height: '500px'}}
                 />
             );
         }

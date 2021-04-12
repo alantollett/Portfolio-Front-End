@@ -16,7 +16,7 @@ export default class PortfolioPage extends React.Component {
     }
 
     render = () => {
-        const {user, displaySuccess} = this.props;
+        const {user, displaySuccess, displayError} = this.props;
         const {range} = this.state;
 
         return (
@@ -32,7 +32,7 @@ export default class PortfolioPage extends React.Component {
                 </div>
                 <PortfolioGraph user={user} range={range}/>
                 
-                <Investments user={user} displaySuccess={displaySuccess}/>
+                <Investments user={user} displaySuccess={displaySuccess} displayError={displayError}/>
             </div>
         );
     }

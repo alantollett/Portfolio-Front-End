@@ -55,7 +55,7 @@ export default class LoginForm extends React.Component {
                     <label>Password</label>
                     <input type="password" name="password" onChange={this.handleChange}/>
                     
-                    <input type="submit" value="Sign In" onChange={this.handleChange}/>
+                    <input type="submit" value="Sign In"/>
                 </form>
             </div>
         )

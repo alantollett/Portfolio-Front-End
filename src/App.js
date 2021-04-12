@@ -89,6 +89,7 @@ export default class App extends React.Component {
                 <PortfolioPage 
                     user={user} 
                     displaySuccess={this.displaySuccess} 
+                    displayError={this.displayError}
                 /> 
             : null}
 

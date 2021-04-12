@@ -8,9 +8,10 @@ export default class OptimisePage extends React.Component {
     }
 
     render = () => {
+        const {user} = this.props;
         return (
             <div className="optimise wrapper">
-                <OptimiseGraph className="graph"/>
+                <OptimiseGraph className="graph" user={user}/>
             </div>
         );
     }

@@ -17,7 +17,7 @@ export default class LoginForm extends React.Component {
     
     loginUser = (e) => {
         e.preventDefault();
-        const {displayError, setToken, openPage} = this.props;
+        const {displayError, login, openPage} = this.props;
 
         // create a user object from the form
         const user = {
@@ -29,7 +29,7 @@ export default class LoginForm extends React.Component {
         // the result is a json web token which represents the full user object.
         axios.post(`http://localhost:80/user/login`, {user}, {crossDomain: false})
         .then((res) => {
-            setToken(res.data.accessToken);
+            login(res.data.shortAccessToken, res.data.fullAccessToken);
             openPage('portfolio');
         }).catch(err => {
             const status = err.response.status;

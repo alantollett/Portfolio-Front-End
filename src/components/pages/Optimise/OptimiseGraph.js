@@ -8,11 +8,22 @@ export default class OptimiseGraph extends React.Component {
         this.state = {
             error: null,
             portfolios: null,
+            tickers: ['AAPL', 'TSLA', 'AMZN', 'KO', 'NKE', 'ZM', 'PEP', 'RIO']
         };
     }
 
     componentDidMount(){
-        axios.get('http://localhost:80/data/portfolios').then(res => {
+        var tickers = "";
+        this.state.tickers.forEach(ticker => tickers += ticker + "-");
+        tickers = tickers.substr(0, tickers.length - 1);
+
+        const params = new URLSearchParams();
+        params.append('tickers', tickers);
+
+        axios.get('http://localhost:80/data/portfolios', {
+            headers: { Authorization: `Bearer ${this.props.user.token}`},
+            params: params
+        }).then(res => {
             this.setState({portfolios: res.data});
         }).catch(err => {
             this.setState({error: err});

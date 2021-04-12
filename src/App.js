@@ -17,7 +17,6 @@ export default class App extends React.Component {
             
             // (token = json web token (JWT) received from server upon login, and
             //  user = the user object (fName, lName, email etc) stored in the payload of the JWT)
-            token: null,
             user: null
         };
     }
@@ -32,8 +31,10 @@ export default class App extends React.Component {
 
     // updates the state to hold a JWT and the object decoded by it (user)
     // once updated, we can load the data (as we need a valid JWT to access it)
-    setToken = (token) => {
-        this.setState({token: token, user: jwt_decode(token)});
+    login = (smallToken, largeToken) => {
+        var user = jwt_decode(largeToken);
+        user['token'] = smallToken;
+        this.setState({user: user});
     }
 
     displayError = (message) => {
@@ -53,7 +54,7 @@ export default class App extends React.Component {
     }
 
     render = () => {
-        const {token, user, errorMessage, successMessage, page} = this.state;
+        const {user, errorMessage, successMessage, page} = this.state;
         
         return (
             <>
@@ -77,7 +78,7 @@ export default class App extends React.Component {
 
             {page === "account" ? 
                 <AccountPage 
-                    setToken={this.setToken} 
+                    login={this.login} 
                     displayError={this.displayError} 
                     displaySuccess={this.displaySuccess} 
                     openPage={this.openPage}
@@ -88,12 +89,11 @@ export default class App extends React.Component {
                 <PortfolioPage 
                     user={user} 
                     displaySuccess={this.displaySuccess} 
-                    token={token}
                 /> 
             : null}
 
             {page === "optimise" ? 
-                <OptimisePage/>
+                <OptimisePage user={user}/>
             :null}
             </>
         )

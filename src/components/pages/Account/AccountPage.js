@@ -9,12 +9,12 @@ export default class AccountPage extends React.Component {
     }
 
     render = () => {
-        const {setToken, displayError, openPage, displaySuccess} = this.props;
+        const {login, displayError, openPage, displaySuccess} = this.props;
 
         return (
             <div className="account wrapper">
                 <div className="grid">
-                    <LoginForm setToken={setToken} displayError={displayError} openPage={openPage}/>
+                    <LoginForm login={login} displayError={displayError} openPage={openPage}/>
                     <RegisterForm displayError={displayError} displaySuccess={displaySuccess}/>
                 </div>
             </div>

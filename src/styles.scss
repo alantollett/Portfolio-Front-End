@@ -57,11 +57,13 @@ body{
 }
 
 .pop-up {
-    margin: 0.25em;
     padding: 0.5em;
     border-radius: 1em;
     background-color: $light;
     font-weight: 550;
+    text-align: center;
+    width: fit-content;
+    margin: 0.25em auto;
 }
 
 nav {
@@ -137,20 +139,6 @@ nav {
     }
 }
 
-
-
-
-
-
-
-
-
-.success {
-    background-color: rgb(44, 187, 44);
-}
-
-
-
 .account {
     margin-top: 2em;
 
@@ -161,27 +149,40 @@ nav {
 
         .grid-item{
             width: 280px;
+            height: fit-content;
             margin-bottom: 2em;
-            background-color: grey;
-            border-radius: 1em;
-            text-align: center;
             padding: 1em;
+            border-radius: 1em;
+
+            background-color: $normal;
+            text-align: center;
+            color: $white;
 
             h1{
                 font-size: 1.5em;
-                margin: 0.5em 0em;
+                margin: 0 0 0.5em 0;
             }
             
             form {
+                background-color: $light;
+                padding: 1em;
+                border-radius: 1em;
+
                 label {
                     display: block;
                     text-align: left;
+                    font-weight: 1000;
+                    color: $dark;
                 }
 
                 input {
                     box-sizing: border-box;
                     width: 100%;
                     margin-bottom: 1em;
+                    padding: 0.5em;
+                    font-size: 0.9em;
+                    border: 1px solid $dark;
+                    border-radius: 0.5em;
                 }
 
                 input[type=submit]{
@@ -190,14 +191,36 @@ nav {
                     border: none;
                     padding: 0.25em 1.0em;
                     font-weight: 550;
-                    background-color: black;
+                    background-color: $dark;
+                    border-radius: 1em;
                     color: white;
+                }
+
+                input[type=submit]:hover {
+                    color: $normal;
+                    cursor: pointer;
                 }
             }
 
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .portfolio {
     margin-top: 2em;

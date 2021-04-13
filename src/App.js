@@ -66,6 +66,14 @@ export default class App extends React.Component {
 
             {currentPage === "home" ? <HomePage/> : null}
 
+            {currentPage === "account" ? 
+                <AccountPage 
+                    login={this.login} 
+                    popUp={this.addPopUp}
+                    openPage={this.openPage}
+                /> 
+            : null}
+
             
             </>
         )

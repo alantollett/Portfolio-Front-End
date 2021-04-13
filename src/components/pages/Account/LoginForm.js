@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 export default class LoginForm extends React.Component {
@@ -14,10 +15,9 @@ export default class LoginForm extends React.Component {
         this.setState({[e.target.name]: e.target.value});
     }
 
-    
     loginUser = (e) => {
         e.preventDefault();
-        const {displayError, login, openPage} = this.props;
+        const {openPage, login, popUp} = this.props;
 
         // create a user object from the form
         const user = {
@@ -34,11 +34,11 @@ export default class LoginForm extends React.Component {
         }).catch(err => {
             const status = err.response.status;
             if(status === 404 || status === 401){
-                displayError('The account information you provided is incorrect.');
+                popUp('The account information you provided is incorrect.', true);
             }else if(status === 412){
-                displayError('You must verify your email before logging in.');
+                popUp('You must verify your email before logging in.', true);
             }else if(status === 500){
-                displayError('Internal Server Error, please contact alantollett@outlook.com.');
+                popUp('Internal Server Error, please contact alantollett@outlook.com.', true);
             }
         });
     }
@@ -61,3 +61,9 @@ export default class LoginForm extends React.Component {
         )
     }
 }
+
+LoginForm.propTypes = {
+    login: PropTypes.func.isRequired,
+    openPage: PropTypes.func.isRequired,
+    popUp: PropTypes.func.isRequired,
+};

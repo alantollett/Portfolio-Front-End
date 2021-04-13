@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 export default class RegisterForm extends React.Component {
@@ -19,16 +20,16 @@ export default class RegisterForm extends React.Component {
     registerUser = (e) => {
         e.preventDefault();
         const {password, password2, email, email2} = this.state;
-        const {displayError, displaySuccess} = this.props;
+        const {popUp} = this.props;
 
         // validate form inputs
         var passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
-        if(password == null) return displayError("You must enter a password");
-        if(password2 == null) return displayError("You must confirm your password");
-        if(password !== password2) return displayError("Passwords must match.");
-        if(!passwordRegex.test(password)) return displayError("Your password must: \n- contain at least one uppercase character, \n- contain at least one lowercase character, \n- contain at least one number, \n- be at least 8 characters long.");
-        if(email == null) return displayError("You must enter an email.");
-        if(email2 == null) return displayError("You must confirm your email.");
+        if(password == null) return popUp("You must enter a password", true);
+        if(password2 == null) return popUp("You must confirm your password", true);
+        if(password !== password2) return popUp("Passwords must match.", true);
+        if(!passwordRegex.test(password)) return popUp("Your password must: \n- contain at least one uppercase character, \n- contain at least one lowercase character, \n- contain at least one number, \n- be at least 8 characters long.", true);
+        if(email == null) return popUp("You must enter an email.", true);
+        if(email2 == null) return popUp("You must confirm your email.", true);
         
         // create a user object from the form
         const user = {
@@ -40,15 +41,13 @@ export default class RegisterForm extends React.Component {
         // the server then sends an email to the user with a verification link.
         axios.post(`http://localhost:80/user/register`, {user}, {crossDomain: false})
         .then((res) => {
-            displaySuccess('Please check your email to verify your account.');
+            popUp('Please check your email to verify your account.', false);
         }).catch(err => {
-            console.log(err);
             const status = err.response.status;
-
             if(status === 409){
-                displayError('An account with that email address already exists.');
+                popUp('An account with that email address already exists.', true);
             }else if(status === 500){
-                displayError('Internal Server Error, please contact alantollett@outlook.com.');
+                popUp('Internal Server Error, please contact alantollett@outlook.com.', true);
             }
         });
     }
@@ -77,3 +76,7 @@ export default class RegisterForm extends React.Component {
         )
     }
 }
+
+RegisterForm.propTypes = {
+    popUp: PropTypes.func.isRequired,
+};

@@ -6,6 +6,7 @@ $green: #69B578;
 $light: #A8DADC;
 $normal: #457B9D;
 $dark: #1D3557;
+$gold: #FFDF00;
 
 $small: 700px;
 $large: 1280px;
@@ -37,6 +38,19 @@ body{
     color: $normal;
 }
 
+.wrapper {
+    margin: auto;
+    max-width: 1200px;    
+
+    @media screen and (max-width: $large) {
+        width: 85%;
+    }
+
+    @media screen and (max-width: $small) {
+        width: 95%;
+    }
+}
+
 .pop-up {
     margin: 0.25em;
     padding: 0.5em;
@@ -45,14 +59,38 @@ body{
     font-weight: 550;
 }
 
+nav {
+    overflow: hidden;
+    background-color: $dark;
 
+    button {
+        border: none;
+        padding: 1.6em 1em;
+        color: white;
+        background-color: $dark;
+        font-weight: 600;
+    }
 
+    button:last-of-type{
+        padding-right: 0;
+    }
 
+    .home-button{
+        padding: 1em 0em;
+        font-size: 1.15em;
+        color: $gold;
+    }
 
+    .home-button:hover{
+        color: $gold;
+    }
 
-.left {
-    float: left;
+    button:hover {
+        cursor: pointer;
+        color: $light;
+    }
 }
+
 
 .right {
     float: right;
@@ -67,40 +105,13 @@ body{
     color: black;
 }
 
-.wrapper {
-    margin: auto;
-    max-width: 1200px;    
 
-    @media screen and (max-width: $large) {
-        width: 85%;
-    }
-
-    @media screen and (max-width: $small) {
-        width: 95%;
-    }
-
-}
 
 .success {
     background-color: rgb(44, 187, 44);
 }
 
-nav {
-    overflow: hidden;
-    background-color: black;
 
-    button {
-        border: none;
-        padding: 1em 1.25em;
-        color: white;
-        background-color: black;
-        font-weight: 600;
-    }
-
-    button:hover {
-        color: lightskyblue;
-    }
-}
 
 .account {
     margin-top: 2em;

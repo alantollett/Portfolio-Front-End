@@ -55,15 +55,7 @@ export default class App extends React.Component {
             this.setState({popUps: popUps});
         }
     }
-
-    componentDidMount(){
-        this.addPopUp('test 1', true);
-        this.addPopUp('test 2', false);
-        this.addPopUp('test 3', true);
-        this.addPopUp('test 4', true);
-        this.addPopUp('test 5', true);
-    }
-
+    
     render = () => {
         const {currentPage, popUps, user} = this.state;
         

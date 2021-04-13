@@ -13,17 +13,19 @@ export default class Navigation extends React.Component {
         return (
             <nav>
                 <div className="wrapper"> 
-                    <button onClick={() => openPage("home")} className={page === "home" ? "active left" : "left"}>Optimal Investor</button>
+                    <button onClick={() => openPage("home")} className="home-button">
+                        PORTFOLIO <span className="gold">OPTIMISER</span>
+                    </button>
                     
                     <div className="right">
                         {user ? 
                             <>
-                                <button onClick={() => openPage("portfolio")} className={page === "portfolio" ? "active" : ""}>My Portfolio</button>
-                                <button onClick={() => openPage("optimise")} className={page === "optimise" ? "active" : ""}>Optimise</button>
+                                <button onClick={() => openPage("portfolio")}>My Portfolio</button>
+                                <button onClick={() => openPage("optimise")} >Optimise</button>
                                 <button onClick={() => logout()}>Logout</button>
                             </>
                         : 
-                            <button onClick={() => openPage("account")} className={page === "account" ? "active" : ""}>Login</button>
+                            <button onClick={() => openPage("account")}>Login</button>
                         }
                     </div>
                 </div>

@@ -4,18 +4,17 @@ import Plot from 'react-plotly.js';
 export default class OptimiseGraph extends React.Component {
 
     render = () => {
-        const {settings, portfolios} = this.props;
+        const {settings, portfolios, openPortfolio} = this.props;
 
         const x = portfolios.map(portfolio => portfolio[settings.x]);
         const y = portfolios.map(portfolio => portfolio[settings.y]);
         const z = portfolios.map(portfolio => portfolio[settings.z]);
 
-        console.log(settings);
-
         return (
             <Plot className="graph grid-item"
                 data={[
                     {
+                        customdata: portfolios,
                         x: x,
                         y: y,
                         z: z,
@@ -26,10 +25,12 @@ export default class OptimiseGraph extends React.Component {
                         hovertemplate: `<b>${settings.z}: %{z}%</b><br>`
                             + `<b>${settings.x}: %{x}%</b><br>`
                             + `<b>${settings.y}: %{y}%</b><br>`
-                            + `%{text}`
+                            + `%{text}<br>`
+                            + `<b>Click for more details.</b>`
                             + `<extra></extra>`
                     }
                 ]}
+
                 layout={{
                     title: 'Efficient Frontier',
                     scene: {
@@ -45,6 +46,13 @@ export default class OptimiseGraph extends React.Component {
                     margin: {l: 0, r: 0, b: 0, t: 0},
                     hovermode: 'closest',
                     hoverlabel: { bgcolor: "#FFF" },
+                }}
+
+                onClick={(data) => {
+                    // timeout to stop onclick firing multiple times bug
+                    setTimeout(() => {
+                        openPortfolio(data.points[0].customdata);
+                    }, 125);
                 }}
 
                 useResizeHandler={true}

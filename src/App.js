@@ -94,7 +94,7 @@ export default class App extends React.Component {
             : null}
 
             {page === "optimise" ? 
-                <OptimisePage user={user} displayError={this.displayError}/>
+                <OptimisePage user={user} displayError={this.displayError} displaySuccess={this.displaySuccess}/>
             :null}
             </>
         )

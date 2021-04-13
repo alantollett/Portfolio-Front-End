@@ -84,22 +84,3 @@ export default class Investments extends React.Component {
         }
     }
 }
-
-{/* <table>
-<tr>
-    <th>Name</th>
-    <th>Ticker</th>
-    <th>Number of Shares</th>
-    <th>Price per Share</th>
-    <th>Current Value</th>
-</tr>
-{investments.map(investment => (
-    <tr>
-        <td>{investment.name}</td>
-        <td>{investment.ticker}</td>
-        <td>{investment.numShares}</td>
-        <td>${investment.sharePrice}</td>
-        <td>${investment.sharePrice * investment.numShares}</td>
-    </tr>
-))}
-</table> */}

@@ -227,51 +227,51 @@ nav {
                  padding: 0.5em 1em;
             }
         }
+    }
+}
 
-        .modal-background {
-            position: fixed;
-            left: 0;
-            top: 0;
-            z-index: 1;
-            width: 100%;
-            height: 100%;
-            // overflow: auto;
-            background-color: rgba(0,0,0,0.5);
+.modal-background {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    // overflow: auto;
+    background-color: rgba(0,0,0,0.5);
 
-            .modal {
-                margin: 5% auto;
-                width: 80%;
-            }
+    .modal {
+        margin: 5% auto;
+        width: 80%;
+    }
 
-            .modal-header{
-                position: relative;
-                background-color: aqua;
-                color: white;
-                text-align: center;
-                padding: 0.5em;
+    .modal-header{
+        position: relative;
+        background-color: aqua;
+        color: white;
+        text-align: center;
+        padding: 0.5em;
 
-                button {
-                    position: absolute;
-                    top: 5px;
-                    right: 5px;
-                    background-color: rgba(0,0,0,0);
-                    color: black;
-                    font-size: 1.5em;
-                    padding: 0.25em;
-                    border: none;
-                }
-
-                button:hover{
-                    cursor: pointer;
-                    color: darkgray;
-                }
-            }
-
-            .modal-body{
-                background-color: white;
-                padding: 1em;
-            }
+        button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(0,0,0,0);
+            color: black;
+            font-size: 1.5em;
+            padding: 0.25em;
+            border: none;
         }
+
+        button:hover{
+            cursor: pointer;
+            color: darkgray;
+        }
+    }
+
+    .modal-body{
+        background-color: white;
+        padding: 1em;
     }
 }
 
@@ -378,6 +378,44 @@ nav {
                     margin-left: 0;
                 }
             }
+        }
+    }
+
+    .modal-body {
+        h1{
+            font-size: 1.5em;
+            margin: 0;
+            text-align: center;
+        }
+
+        h2 {
+            margin: 0;
+        }
+
+        ul {
+            margin-top: 0;
+            margin-bottom: 1em;
+            list-style-type: none;
+            padding: 0 2em;
+
+            li {
+                font-size: 1.15em;
+            }
+        }
+
+        button {
+            width: 100%;
+            padding: 0.5em;
+            background-color: aqua;
+            color: white;
+            font-weight: 550;
+            font-size: 1em;
+            border: none;
+        }
+
+        button:hover {
+            color: darkgray;
+            cursor: pointer;
         }
     }
 }

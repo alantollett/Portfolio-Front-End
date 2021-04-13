@@ -13,14 +13,18 @@ export default class Axis extends React.Component {
 
     render = () => {
         const {axes} = this.state;
-        const {name, handleChange} = this.props;
+        const {name, handleChange, selected} = this.props;
 
         return (
             <div className="tickers">
                 <label>{name.toUpperCase()} Axis</label>
                 <select name={name} onChange={handleChange}>
-                    <option value="Select Factor">Select Factor</option>
-                    {axes.map(axis => <option value={axis[0]}>{axis[1]}</option>)}
+                    {axes.map((axis, index) => 
+                        <option 
+                            value={axis[0]} 
+                            selected={index == selected ? "selected" : ""}
+                        >{axis[1]}</option>)
+                    }
                 </select>
             </div>
         );

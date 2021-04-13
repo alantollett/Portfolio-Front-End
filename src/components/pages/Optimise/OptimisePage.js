@@ -1,6 +1,7 @@
 import React from 'react';
 import OptimiseGraph from './OptimiseGraph';
 import OptimiseSettings from './OptimiseSettings';
+import PortfolioModal from './PortfolioModal';
 import axios from 'axios';
 
 export default class OptimisePage extends React.Component {
@@ -9,7 +10,8 @@ export default class OptimisePage extends React.Component {
         this.state = {
             settings: null,
             portfolios: null,
-            error: null
+            error: null,
+            portfolio: null,
         };
     }
 
@@ -47,15 +49,31 @@ export default class OptimisePage extends React.Component {
         });
     }
 
+    openPortfolio = (portfolio) => {
+        this.setState({portfolio: portfolio});
+    }
+
+    closePortfolio = () => {
+        this.setState({portfolio: null});
+    }
+
     render = () => {
-        const {user} = this.props;
-        const {settings, portfolios, error} = this.state;
+        const {user, displaySuccess} = this.props;
+        const {settings, portfolios, error, portfolio} = this.state;
 
         if(error) {
             return <div>{error.message}</div>;
         } else {
             return (
                 <div className="optimise wrapper">
+                    {portfolio ? 
+                        <PortfolioModal 
+                            displaySuccess={displaySuccess}
+                            closeFunc={this.closePortfolio} 
+                            portfolio={portfolio} 
+                            user={user}/> 
+                    : null}
+
                     <h1>Optimise</h1>
     
                     <div className="grid">
@@ -63,7 +81,12 @@ export default class OptimisePage extends React.Component {
     
                         {settings ? 
                             (portfolios ? 
-                                <OptimiseGraph className="graph" user={user} settings={settings} portfolios={portfolios}/>
+                                <OptimiseGraph className="graph" 
+                                    user={user} 
+                                    settings={settings} 
+                                    portfolios={portfolios}
+                                    openPortfolio={this.openPortfolio}
+                                />
                             :
                                 <div className="loading">Downloading Stock Data...</div>
                             )

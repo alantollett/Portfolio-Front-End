@@ -7,10 +7,10 @@ export default class OptimisePage extends React.Component {
         super(props);
         this.state = {
             tickers: new Set(),
-            x: null,
-            y: null,
-            z: null,
-            colour: null,
+            x: 'standardDeviation',
+            y: 'expectedDividendYield',
+            z: 'expectedReturn',
+            colour: 'priceToBook',
         };
     }
 
@@ -44,17 +44,17 @@ export default class OptimisePage extends React.Component {
                 <h1>Settings</h1>
 
                 <Tickers tickers={tickers} handleChange={this.handleChange} removeTicker={this.removeTicker}/>
-                <Axis name="x" handleChange={this.handleChange}/>
-                <Axis name="y" handleChange={this.handleChange}/>
-                <Axis name="z" handleChange={this.handleChange}/>
-                <Axis name="colour" handleChange={this.handleChange}/>
+                <Axis name="x" selected="0" handleChange={this.handleChange}/>
+                <Axis name="y" selected="1" handleChange={this.handleChange}/>
+                <Axis name="z" selected="2" handleChange={this.handleChange}/>
+                {/* <Axis name="colour" selected="3" handleChange={this.handleChange}/> */}
 
                 <button class="visualise-button" onClick={() => updateSettings({
                     tickers: tickers,
                     x: this.state.x,
                     y: this.state.y,
                     z: this.state.z,
-                    colour: this.state.colour,
+                    // colour: this.state.colour,
                 })}>Visualise</button>
             </div>
         );

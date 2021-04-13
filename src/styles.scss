@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
 
-$background: rgb(250, 246, 250);
-$primary: rgb(42, 233, 240);
-$secondary: rgb(150, 253, 172);
-$error: rgb(221, 65, 70); 
+$white: #F1FAEE;
+$red: #E63946;
+$green: #69B578;
+$light: #A8DADC;
+$normal: #457B9D;
+$dark: #1D3557;
 
 $small: 700px;
 $large: 1280px;
@@ -11,9 +13,42 @@ $large: 1280px;
 body{
     margin: 0;
     font-family: 'Open Sans', sans-serif;
-    background-color: $background;
-    color: $primary;
+    background-color: $white;
 }
+
+.red {
+    color: $red;
+}
+
+.green {
+    color: $green;
+}
+
+.close-button{
+    background-color: rgba(0,0,0,0);
+    float: right;
+    border: none;
+    font-size: 1em;
+    color: $dark;
+}
+
+.close-button:hover{
+    cursor: pointer;
+    color: $normal;
+}
+
+.pop-up {
+    margin: 0.25em;
+    padding: 0.5em;
+    border-radius: 1em;
+    background-color: $light;
+    font-weight: 550;
+}
+
+
+
+
+
 
 .left {
     float: left;
@@ -44,18 +79,6 @@ body{
         width: 95%;
     }
 
-}
-
-.error, .success {
-    padding: 0.5em;
-    background-color: rgb(226, 64, 64);
-    
-    p {
-        margin: 0;
-        font-size: 0.9em;
-        font-weight: 600;
-        text-align: center;
-    }
 }
 
 .success {

@@ -2,7 +2,8 @@ import React from 'react';
 import jwt_decode from 'jwt-decode';
 
 import Navigation from './components/Navigation';
-import HomePage from './components/pages/HomePage';
+import PopUp from './components/PopUp';
+import HomePage from './components/pages/Home/HomePage';
 import AccountPage from './components/pages/Account/AccountPage';
 import PortfolioPage from './components/pages/Portfolio/PortfolioPage';
 import OptimisePage from './components/pages/Optimise/OptimisePage';
@@ -11,92 +12,98 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            page: "home",
-            errorMessage: null,
-            successMessage: null,
-            
-            // (token = json web token (JWT) received from server upon login, and
-            //  user = the user object (fName, lName, email etc) stored in the payload of the JWT)
+            currentPage: "home",
+            popUps: [],
             user: null
         };
     }
 
-    openPage = (page) => {
-        this.setState({page: page});
-    }
+    // opens the specified page (home/dashboard/optimise)
+    openPage = (page) => this.setState({currentPage: page});
 
-    logout = () => {
-        this.setState({token: null, user: null, page: "home"});
-    }
 
-    // updates the state to hold a JWT and the object decoded by it (user)
-    // once updated, we can load the data (as we need a valid JWT to access it)
+    // adds a user object to the state based upon json web tokens
     login = (smallToken, largeToken) => {
         var user = jwt_decode(largeToken);
         user['token'] = smallToken;
         this.setState({user: user});
     }
+    
+    // removes the user from the state and returns to the home page
+    logout = () => this.setState({user: null, currentPage: "home"});
 
-    displayError = (message) => {
-        this.setState({errorMessage: message});
+    // adds a message to the pop-up
+    addPopUp = (message, error) => {
+        // create a popUp object
+        const popUp = {message: message, error: error};
 
+        // add to the popUps list
+        var popUps = this.state.popUps;
+        popUps.push(popUp);
+        this.setState({popUps: popUps});
+
+        // remove the popUp after 3 seconds...
         setTimeout(() => {
-            this.setState({errorMessage: null});
+            this.removePopUp(popUp);
         }, 5000);
     }
 
-    displaySuccess = (message) => {
-        this.setState({successMessage: message});
+    removePopUp = (popUp) => {
+        var popUps = this.state.popUps;
+        if(popUps.includes(popUp)) {
+            popUps = popUps.filter(p => p !== popUp);
+            this.setState({popUps: popUps});
+        }
+    }
 
-        setTimeout(() => {
-            this.setState({successMessage: null});
-        }, 5000);
+    componentDidMount(){
+        this.addPopUp('test 1', true);
+        this.addPopUp('test 2', false);
+        this.addPopUp('test 3', true);
+        this.addPopUp('test 4', true);
+        this.addPopUp('test 5', true);
     }
 
     render = () => {
-        const {user, errorMessage, successMessage, page} = this.state;
+        const {currentPage, popUps, user} = this.state;
         
         return (
             <>
-            <Navigation user={user} openPage={this.openPage} page={page} logout={this.logout}/>
-
-            {errorMessage ? (
-                <div className="error">
-                    <div className="wrapper"><p>{errorMessage}</p></div>
+            <Navigation user={user} openPage={this.openPage} page={currentPage} logout={this.logout}/>
+            {popUps ? 
+                <div className="wrapper">
+                    {popUps.map(popUp => <PopUp closeEarly={this.removePopUp}>{popUp}</PopUp>)}
                 </div>
-            ) : null}
-
-            {successMessage ? (
-                <div className="success">
-                    <div className="wrapper"><p>{successMessage}</p></div>
-                </div>
-            ) : null}
-
-            {page === "home" ? 
-                <HomePage/>
             : null}
 
-            {page === "account" ? 
-                <AccountPage 
-                    login={this.login} 
-                    displayError={this.displayError} 
-                    displaySuccess={this.displaySuccess} 
-                    openPage={this.openPage}
-                /> 
-            : null}
+            {currentPage === "home" ? <HomePage/> : null}
 
-            {page === "portfolio" ? 
-                <PortfolioPage 
-                    user={user} 
-                    displaySuccess={this.displaySuccess} 
-                    displayError={this.displayError}
-                /> 
-            : null}
 
-            {page === "optimise" ? 
-                <OptimisePage user={user} displayError={this.displayError} displaySuccess={this.displaySuccess}/>
-            :null}
             </>
         )
     }
 }
+
+
+
+
+// {currentPage === "account" ? 
+// <AccountPage 
+//     login={this.login} 
+//     displayError={this.displayError} 
+//     displaySuccess={this.displaySuccess} 
+//     openPage={this.openPage}
+// /> 
+// : null}
+
+// {currentPage === "portfolio" ? 
+// <PortfolioPage 
+//     user={user} 
+//     displaySuccess={this.displaySuccess} 
+//     displayError={this.displayError}
+// /> 
+// : null}
+
+// {currentPage === "optimise" ? 
+// <OptimisePage user={user} displayError={this.displayError} displaySuccess={this.displaySuccess}/>
+// :null}

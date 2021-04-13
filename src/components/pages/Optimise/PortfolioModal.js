@@ -12,7 +12,7 @@ export default class PortfolioModal extends React.Component {
     }
 
     componentDidMount(){
-        axios.get('http://localhost:80/data/investments', {
+        axios.get('http://localhost:80/user/investments', {
             headers: { Authorization: `Bearer ${this.props.user.token}`}
         }).then(res => {
             this.setState({userInvestments: res.data});
@@ -99,7 +99,7 @@ export default class PortfolioModal extends React.Component {
 
         for(var investment of investments){
             // post the form data to /investment
-            await axios.post(`http://localhost:80/data/investments`, {investment}, {
+            await axios.post(`http://localhost:80/user/investments`, {investment}, {
                 headers: { Authorization: `Bearer ${user.token}`}
             }).catch(err => {
                 console.log(err);

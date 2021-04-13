@@ -34,7 +34,7 @@ export default class BuySharesForm extends React.Component {
         };
 
         // post the form data to /investment
-        axios.post(`http://localhost:80/data/investments`, {investment}, {
+        axios.post(`http://localhost:80/user/investments`, {investment}, {
             headers: { Authorization: `Bearer ${user.token}`}
         }).then((res) => {
             closeFunc();

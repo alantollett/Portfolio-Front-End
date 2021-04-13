@@ -7,6 +7,7 @@ $light: #A8DADC;
 $normal: #457B9D;
 $dark: #1D3557;
 $gold: #FFDF00;
+$blueGradient: linear-gradient(180deg, rgba(7,200,249,1) 0%, rgba(13,65,225,0.9) 100%);
 
 $small: 700px;
 $large: 1280px;
@@ -14,7 +15,7 @@ $large: 1280px;
 body{
     margin: 0;
     font-family: 'Open Sans', sans-serif;
-    background-color: $white;
+    background: radial-gradient(circle, rgba(241,250,238,1) 50%, rgba(168,218,220,1) 100%);;
 }
 
 .red {
@@ -23,6 +24,10 @@ body{
 
 .green {
     color: $green;
+}
+
+.gold {
+    color: $gold;
 }
 
 .close-button{
@@ -61,13 +66,17 @@ body{
 
 nav {
     overflow: hidden;
-    background-color: $dark;
+    background: $blueGradient;
+
+    .right {
+        float: right;
+    }
 
     button {
         border: none;
         padding: 1.6em 1em;
         color: white;
-        background-color: $dark;
+        background-color: rgba(0,0,0,0);
         font-weight: 600;
     }
 
@@ -92,18 +101,47 @@ nav {
 }
 
 
-.right {
-    float: right;
+.home {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 100;
+    
+    h1{
+        color: $gold;
+        margin-bottom: 0;
+        font-size: 2.75em;
+    }
+
+    h2 {
+        margin: 0;
+        font-size: 0.9em;
+    }
+
+    video {
+        width: 75%;
+        height: 75%;
+    }
+
+    button {
+        margin: 1em;
+        font-size: 1.5em;
+        padding: 0.5em 3em;
+        color: $white;
+        font-weight: 600;
+        background-color: $gold;
+        border: none;
+        border-radius: 0.5em;
+        -webkit-box-shadow: 0px 0px 5px 2px $normal;
+        -moz-box-shadow: 0px 0px 5px 2px $normal;
+        box-shadow: 0px 0px 5px 2px $normal;
+    }
 }
 
-.active {
-    font-weight: 600;
-    color: aqua;
-}
 
-.inactive {
-    color: black;
-}
+
+
+
+
 
 
 

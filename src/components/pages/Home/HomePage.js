@@ -9,8 +9,10 @@ export default class HomePage extends React.Component {
     render = () => {
         return (
             <div className="home wrapper">
-                <h1>Optimal Investor</h1>
-                <p>some content on this page...</p>
+                <h1>PORTFOLIO OPTIMISER</h1>
+                <h2>Helping you to invest only in the market's most <span className="gold">optimal</span> porfolios...</h2>
+                <video></video>
+                <button>Start Investing Now!</button>
             </div>
         );
     }

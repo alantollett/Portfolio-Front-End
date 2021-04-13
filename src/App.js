@@ -55,22 +55,18 @@ export default class App extends React.Component {
             this.setState({popUps: popUps});
         }
     }
-    
+
     render = () => {
         const {currentPage, popUps, user} = this.state;
         
         return (
             <>
             <Navigation user={user} openPage={this.openPage} page={currentPage} logout={this.logout}/>
-            {popUps ? 
-                <div className="wrapper">
-                    {popUps.map(popUp => <PopUp closeEarly={this.removePopUp}>{popUp}</PopUp>)}
-                </div>
-            : null}
+            {popUps ? popUps.map(popUp => <PopUp closeEarly={this.removePopUp}>{popUp}</PopUp>) : null}
 
             {currentPage === "home" ? <HomePage/> : null}
 
-
+            
             </>
         )
     }
@@ -79,14 +75,7 @@ export default class App extends React.Component {
 
 
 
-// {currentPage === "account" ? 
-// <AccountPage 
-//     login={this.login} 
-//     displayError={this.displayError} 
-//     displaySuccess={this.displaySuccess} 
-//     openPage={this.openPage}
-// /> 
-// : null}
+
 
 // {currentPage === "portfolio" ? 
 // <PortfolioPage 

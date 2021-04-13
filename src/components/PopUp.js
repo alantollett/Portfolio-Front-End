@@ -7,11 +7,13 @@ export default class PopUp extends React.Component {
         const closeEarly = this.props.closeEarly;
 
         return (
-            <div className={popUp.error ? "pop-up red" : "pop-up green"}>
-                {popUp.message}
-                <button className="close-button" onClick={() => closeEarly(popUp)}>
-                    <i className="fa fa-times"/>
-                </button>
+            <div className="wrapper">
+                <div className={popUp.error ? "pop-up red" : "pop-up green"}>
+                    {popUp.message}
+                    <button className="close-button" onClick={() => closeEarly(popUp)}>
+                        <i className="fa fa-times"/>
+                    </button>
+                </div>
             </div>
         );
     }

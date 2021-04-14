@@ -4,8 +4,8 @@ export default class Axis extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            axes: [['standardDeviation', 'Standard Deviation'], 
-                  ['expectedDividendYield', 'Expected Dividend Yield'], 
+            axes: [['expectedDividendYield', 'Expected Dividend Yield'],  
+                  ['standardDeviation', 'Standard Deviation'], 
                   ['expectedReturn', 'Expected Return'], 
                   ['priceToBook', 'Price to Book Value']]
         };

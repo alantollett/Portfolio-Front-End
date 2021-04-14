@@ -25,7 +25,7 @@ export default class PortfolioModal extends React.Component {
     // https://www.geeksforgeeks.org/gcd-two-array-numbers/
     // Function to return gcd of a and b
     gcd(a, b) {
-        if (a == 0) return b;
+        if (a === 0) return b;
         return this.gcd(b % a, a);
     }
     
@@ -35,7 +35,7 @@ export default class PortfolioModal extends React.Component {
         for (let i = 1; i < arr.length; i++) {
             result = this.gcd(arr[i], result);
     
-            if(result == 1)
+            if(result === 1)
             {
             return 1;
             }
@@ -94,7 +94,7 @@ export default class PortfolioModal extends React.Component {
     }
 
     obtainPortfolio = async () => {
-        const {closeFunc, displaySuccess, user} = this.props;
+        const {closeFunc, popUp, user} = this.props;
         const investments = this.state.investmentsRequired;
 
         for(var investment of investments){
@@ -107,7 +107,7 @@ export default class PortfolioModal extends React.Component {
         }
 
         closeFunc();
-        displaySuccess('Share(s) Purchased Successfully');
+        popUp('Portfolio Obtained Successfully', false);
     }
 
     render() {
@@ -119,17 +119,24 @@ export default class PortfolioModal extends React.Component {
                 {!userInvestments ? <div className="loading">Downloading Investments Data...</div> : (
                     <>
                     <h1>To obtain this portfolio you must...</h1>
-                    <h2>Buy...</h2>
-                    <ul>
-                        {toBuy ? toBuy.map(inv => <li>{inv.numShares} share(s) in {inv.ticker}.</li>)
-                        : "Nothing!"}
-                    </ul>
 
-                    <h2>And Sell...</h2>
-                    <ul>
-                        {toSell ? toSell.map(inv => <li>{Math.abs(inv.numShares)} share(s) in {inv.ticker}.</li>)
-                        : "Nothing!"}
-                    </ul>
+                    {!toBuy || toBuy.length === 0  ? <h2>Buy Nothing!</h2> : (
+                        <>
+                        <h2>Buy...</h2>
+                        <ul>
+                            {toBuy.map(inv => <li className="green">{inv.numShares} share(s) in {inv.ticker}.</li>)}
+                        </ul>
+                        </>
+                    )}
+
+                    {!toSell || toSell.length === 0 ? <h2>And Sell Nothing!</h2> : (
+                        <>
+                        <h2>And Sell...</h2>
+                        <ul>
+                            {toSell.map(inv => <li className="red">{Math.abs(inv.numShares)} share(s) in {inv.ticker}.</li>)}
+                        </ul>
+                        </>
+                    )}
 
                     <button onClick={this.obtainPortfolio}>Obtain Portfolio</button>
                     </>

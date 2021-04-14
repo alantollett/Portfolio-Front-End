@@ -14,16 +14,19 @@ export default class Tickers extends React.Component {
 
         return (
             <div className="tickers">
-                <div className="top-box">
-                    <label>Tickers</label>
-                    <select name="tickers" onChange={handleChange}>
-                        <option value="Select Ticker">Select Ticker</option>
-                        {allTickers.map(ticker => <option value={ticker}>{ticker}</option>)}
-                    </select>
-                </div>
+                <label>Tickers</label>
+                <select name="tickers" onChange={handleChange}>
+                    <option value="Select Ticker">Select Ticker</option>
+                    {allTickers.map(ticker => <option value={ticker}>{ticker}</option>)}
+                </select>
 
                 {Array.from(tickers).map(ticker => 
-                    <span className="ticker">{ticker} <button onClick={() => removeTicker(ticker)}>x</button></span>
+                    <span className="ticker">
+                        {ticker} 
+                        <button className="close-button" onClick={() => removeTicker(ticker)}>
+                            <i className="fa fa-times"/>
+                        </button>
+                    </span>
                 )}
             </div>
         );

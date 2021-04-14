@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import OptimiseGraph from './OptimiseGraph';
 import OptimiseSettings from './OptimiseSettings';
 import PortfolioModal from './PortfolioModal';
@@ -18,7 +19,7 @@ export default class OptimisePage extends React.Component {
     updateSettings = async (settings) => {
         // if(settings.tickers.size === 0 || !settings.x || !settings.y || !settings.z || !settings.colour) {
         if(settings.tickers.size === 0){
-            this.props.displayError('You must select 1 or more tickers and a value for each axis.');
+            this.props.popUp('You must select 1 or more tickers and a value for each axis.', true);
             return;
         }
         await this.setState({settings: settings});
@@ -58,7 +59,7 @@ export default class OptimisePage extends React.Component {
     }
 
     render = () => {
-        const {user, displaySuccess} = this.props;
+        const {user, popUp} = this.props;
         const {settings, portfolios, error, portfolio} = this.state;
 
         if(error) {
@@ -68,13 +69,11 @@ export default class OptimisePage extends React.Component {
                 <div className="optimise wrapper">
                     {portfolio ? 
                         <PortfolioModal 
-                            displaySuccess={displaySuccess}
+                            popUp={popUp}
                             closeFunc={this.closePortfolio} 
                             portfolio={portfolio} 
                             user={user}/> 
                     : null}
-
-                    <h1>Optimise</h1>
     
                     <div className="grid">
                         <OptimiseSettings updateSettings={this.updateSettings}/>
@@ -97,3 +96,8 @@ export default class OptimisePage extends React.Component {
         };
     }
 }
+
+OptimisePage.propTypes = {
+    popUp: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired
+};

@@ -42,10 +42,10 @@ export default class App extends React.Component {
         popUps.push(popUp);
         this.setState({popUps: popUps});
 
-        // remove the popUp after 3 seconds...
+        // remove the popUp after 4 seconds...
         setTimeout(() => {
             this.removePopUp(popUp);
-        }, 5000);
+        }, 4000);
     }
 
     removePopUp = (popUp) => {
@@ -67,14 +67,11 @@ export default class App extends React.Component {
             {currentPage === "home" ? <HomePage/> : null}
 
             {currentPage === "account" ? 
-                <AccountPage 
-                    login={this.login} 
-                    popUp={this.addPopUp}
-                    openPage={this.openPage}
-                /> 
+                <AccountPage login={this.login} popUp={this.addPopUp} openPage={this.openPage}/> 
             : null}
 
-            
+            {currentPage === "portfolio" ? <PortfolioPage user={user} popUp={this.addPopUp}/> : null}
+            {currentPage === "optimise" ? <OptimisePage user={user} popUp={this.addPopUp}/> : null}
             </>
         )
     }
@@ -82,17 +79,3 @@ export default class App extends React.Component {
 
 
 
-
-
-
-// {currentPage === "portfolio" ? 
-// <PortfolioPage 
-//     user={user} 
-//     displaySuccess={this.displaySuccess} 
-//     displayError={this.displayError}
-// /> 
-// : null}
-
-// {currentPage === "optimise" ? 
-// <OptimisePage user={user} displayError={this.displayError} displaySuccess={this.displaySuccess}/>
-// :null}

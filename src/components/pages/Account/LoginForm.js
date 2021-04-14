@@ -46,16 +46,16 @@ export default class LoginForm extends React.Component {
     render = () => {
         return (
             <div className="grid-item">
-                <h1>Login</h1>
+                <h1>Sign In</h1>
 
-                <form onSubmit={this.loginUser}>
+                <form>
                     <label>Email</label>
                     <input type="email" name="email" onChange={this.handleChange}/>
 
                     <label>Password</label>
                     <input type="password" name="password" onChange={this.handleChange}/>
                     
-                    <input type="submit" value="Sign In"/>
+                    <button onClick={this.loginUser}>Sign In</button>
                 </form>
             </div>
         )

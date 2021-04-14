@@ -57,7 +57,7 @@ export default class RegisterForm extends React.Component {
             <div className="grid-item">
                 <h1>Sign Up</h1>
 
-                <form onSubmit={this.registerUser}>
+                <form>
                     <label>Email</label>
                     <input type="email" name="email" onChange={this.handleChange}/>
 
@@ -70,7 +70,7 @@ export default class RegisterForm extends React.Component {
                     <label>Confirm Password</label>
                     <input type="password" name="password2" onChange={this.handleChange}/>
                     
-                    <input type="submit" value="Sign Up"/>
+                    <button onClick={this.registerUser}>Sign Up</button>
                 </form>
             </div>
         )

@@ -36,6 +36,17 @@ export default class OptimisePage extends React.Component {
         this.setState({tickers: tickers});
     }
 
+    loadVisualisation = (e) => {
+        e.preventDefault();
+        this.props.updateSettings({
+            tickers: this.state.tickers,
+            x: this.state.x,
+            y: this.state.y,
+            z: this.state.z,
+            // colour: this.state.colour,
+        });
+    }
+
     render = () => {
         const {tickers} = this.state;
         const {updateSettings} = this.props;
@@ -43,19 +54,15 @@ export default class OptimisePage extends React.Component {
             <div className="settings grid-item">
                 <h1>Settings</h1>
 
-                <Tickers tickers={tickers} handleChange={this.handleChange} removeTicker={this.removeTicker}/>
-                <Axis name="x" selected="0" handleChange={this.handleChange}/>
-                <Axis name="y" selected="1" handleChange={this.handleChange}/>
-                <Axis name="z" selected="2" handleChange={this.handleChange}/>
-                {/* <Axis name="colour" selected="3" handleChange={this.handleChange}/> */}
+                <form>
+                    <Tickers tickers={tickers} handleChange={this.handleChange} removeTicker={this.removeTicker}/>
+                    <Axis name="x" selected="0" handleChange={this.handleChange}/>
+                    <Axis name="y" selected="1" handleChange={this.handleChange}/>
+                    <Axis name="z" selected="2" handleChange={this.handleChange}/>
+                    {/* <Axis name="colour" selected="3" handleChange={this.handleChange}/> */}
 
-                <button class="visualise-button" onClick={() => updateSettings({
-                    tickers: tickers,
-                    x: this.state.x,
-                    y: this.state.y,
-                    z: this.state.z,
-                    // colour: this.state.colour,
-                })}>Visualise</button>
+                    <button class="optimise-button" onClick={this.loadVisualisation}>View Optimal Portfolios</button>
+                </form>
             </div>
         );
     }

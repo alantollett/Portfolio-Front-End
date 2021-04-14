@@ -1,15 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
-import BuySharesForm from './BuySharesForm';
+
+import BuyModal from './BuyModal';
 import InvestmentsTable from './InvestmentsTable';
 
 export default class Investments extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            buySharesVisible: false,
-            sellSharesVisible: false,
-            purchase: false,
+            buyModalVisible: false,
             error: null,
             investments: null,
         };
@@ -20,7 +20,7 @@ export default class Investments extends React.Component {
     }
 
     updateInvestments(){
-        axios.get('http://localhost:80/data/investments', {
+        axios.get('http://localhost:80/user/investments', {
             headers: { Authorization: `Bearer ${this.props.user.token}`}
         }).then(res => {
             this.setState({investments: res.data});
@@ -30,26 +30,22 @@ export default class Investments extends React.Component {
     }
 
     openModal = () => {
-        this.setState({buySharesVisible: true});
+        this.setState({buyModalVisible: true});
     }
 
     closeModal = () => {
-        this.setState({buySharesVisible: false});
+        this.setState({buyModalVisible: false});
         this.updateInvestments();
     }
 
     sellShare = (ticker) => {
-        const {user, displaySuccess} = this.props;
+        const {user, popUp} = this.props;
+        const investment = {ticker: ticker, numShares: -1};
 
-        const investment = {
-            ticker: ticker,
-            numShares: -1
-        }
-
-        axios.post(`http://localhost:80/data/investments`, {investment}, {
+        axios.post(`http://localhost:80/user/investments`, {investment}, {
             headers: { Authorization: `Bearer ${user.token}`}
         }).then((res) => {
-            displaySuccess('Share(s) Sold Successfully');
+            popUp('Share(s) Sold Successfully', false);
             this.updateInvestments();
         }).catch(err => {
             console.log(err);
@@ -57,24 +53,20 @@ export default class Investments extends React.Component {
     }
 
     render = () => {
-        const {investments, error, buySharesVisible} = this.state;
-        const {user, displayError, displaySuccess} = this.props;
+        const {investments, error, buyModalVisible} = this.state;
+        const {user, popUp} = this.props;
 
         if(error){
             return <div>{error.message}</div>
         } else{
             return (
                 <div className="investments">
-
-                    {buySharesVisible ? 
-                        <BuySharesForm closeFunc={this.closeModal} user={user} displayError={displayError} displaySuccess={displaySuccess}/>
+                    <h1>My Investments</h1>
+                    {buyModalVisible ? 
+                        <BuyModal closeFunc={this.closeModal} user={user} popUp={popUp}/>
                     : null}
-
-                    <h1>Investments</h1>
     
-                    <div className="buttons">
-                        <button onClick={() => this.openModal()}>Buy Share(s)</button>
-                    </div>
+                    <button className="buy-button" onClick={() => this.openModal()}>Buy Share(s)</button>
     
                     {!investments ? <div>Downloading Investments Data...</div> : (
                         <InvestmentsTable investments={investments} sellShare={this.sellShare}/>
@@ -84,3 +76,8 @@ export default class Investments extends React.Component {
         }
     }
 }
+
+Investments.propTypes = {
+    popUp: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired
+};

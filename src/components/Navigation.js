@@ -8,13 +8,13 @@ export default class Navigation extends React.Component {
     }
 
     render = () => {
-        const {user, page, openPage, logout} = this.props;
+        const {user, openPage, logout} = this.props;
 
         return (
             <nav>
                 <div className="wrapper"> 
                     <button onClick={() => openPage("home")} className="home-button">
-                        PORTFOLIO <span className="gold">OPTIMISER</span>
+                        PORTFOLIO OPTIMISER
                     </button>
                     
                     <div className="right">

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Modal extends React.Component {
     render() {
@@ -8,8 +9,8 @@ export default class Modal extends React.Component {
             <div className="modal-background">
                 <div className="modal">
                     <div className="modal-header">
-                        <h1>{title}</h1>
-                        <button onClick={closeFunc} className="modal-close"><i className="fa fa-times"></i></button>
+                        <h1 style={{color: "white", margin:"0"}}>{title}</h1>
+                        <button onClick={closeFunc} className="close-button"><i className="fa fa-times"></i></button>
                     </div>
 
                     <div className="modal-body">
@@ -21,3 +22,9 @@ export default class Modal extends React.Component {
         
     }
 }
+
+Modal.propTypes = {
+    closeFunc: PropTypes.func.isRequired,
+    title: PropTypes.string.isRequired,
+    children: PropTypes.object.isRequired,
+};

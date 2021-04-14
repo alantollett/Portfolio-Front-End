@@ -1,13 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
 
-$white: #F1FAEE;
-$red: #E63946;
-$green: #69B578;
-$light: #A8DADC;
-$normal: #457B9D;
-$dark: #1D3557;
-$gold: #FFDF00;
-$blueGradient: linear-gradient(180deg, rgba(7,200,249,1) 0%, rgba(13,65,225,0.9) 100%);
+$white: #eeeeee;
+$red: red;
+$green: green;
+$light: #979797;
+$normal: rgba(0,0,0,0.8);
+$blue: #06c;
 
 $small: 700px;
 $large: 1280px;
@@ -15,7 +13,24 @@ $large: 1280px;
 body{
     margin: 0;
     font-family: 'Open Sans', sans-serif;
-    background: radial-gradient(circle, rgba(241,250,238,1) 50%, rgba(168,218,220,1) 100%);;
+    background: $white;
+    color: $normal;
+}
+
+h1{
+    margin: 0;
+    font-size: 2em;
+    color: $normal;
+}
+
+h2 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+
+.blue {
+    color: $blue;
 }
 
 .red {
@@ -26,21 +41,32 @@ body{
     color: $green;
 }
 
-.gold {
-    color: $gold;
+button {
+    padding: 0.25em 0.5em;
+    color: $white;
+    border: none;        
+    background-color: $normal;
+    border-radius: 0.75em;
+}
+
+button:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .close-button{
     background-color: rgba(0,0,0,0);
     float: right;
     border: none;
-    font-size: 1em;
-    color: $dark;
+    font-size: 1.25em;
+    color: $normal;
+    padding: 0;
+    margin-right: 0.25em;
 }
 
 .close-button:hover{
     cursor: pointer;
-    color: $normal;
+    color: $light;
 }
 
 .wrapper {
@@ -60,24 +86,68 @@ body{
     padding: 0.5em;
     border-radius: 1em;
     background-color: $light;
-    font-weight: 550;
+    font-weight: 600;
     text-align: center;
-    width: fit-content;
-    margin: 0.25em auto;
+    margin: 0.5em auto;
+}
+
+.modal-background {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+
+    .modal {
+        margin: 5% auto;
+        width: 80%;
+    }
+
+    .modal-header{
+        position: relative;
+        background-color: $blue;
+        color: $white;
+        text-align: center;
+        padding: 0.5em;
+    }
+
+    .modal-body{
+        border-bottom-right-radius: 0.5em;
+        border-bottom-left-radius: 0.5em;
+        background-color: white;
+        padding: 1em;
+
+        button {
+            background-color: $blue;
+        }
+    }
 }
 
 nav {
     overflow: hidden;
-    background: $blueGradient;
+    background: $normal;
 
     .right {
         float: right;
+
+        @media screen and (max-width: $small) {
+            float: none;
+            
+            button {
+                padding-bottom: 1em;
+                padding-top: 1em;
+            }
+        }
+    }
+
+    @media screen and (max-width: $small) {
+        text-align: center;
     }
 
     button {
-        border: none;
-        padding: 1.6em 1em;
-        color: white;
+        padding: 1.25em 1em;
         background-color: rgba(0,0,0,0);
         font-weight: 600;
     }
@@ -86,19 +156,13 @@ nav {
         padding-right: 0;
     }
 
+    button:first-of-type{
+        padding-left: 0;
+    }
+
     .home-button{
-        padding: 1em 0em;
+        padding: 0.75em 0em;
         font-size: 1.15em;
-        color: $gold;
-    }
-
-    .home-button:hover{
-        color: $gold;
-    }
-
-    button:hover {
-        cursor: pointer;
-        color: $light;
     }
 }
 
@@ -108,17 +172,6 @@ nav {
     text-transform: uppercase;
     font-weight: 100;
     
-    h1{
-        color: $gold;
-        margin-bottom: 0;
-        font-size: 2.75em;
-    }
-
-    h2 {
-        margin: 0;
-        font-size: 0.9em;
-    }
-
     video {
         width: 75%;
         height: 75%;
@@ -127,15 +180,15 @@ nav {
     button {
         margin: 1em;
         font-size: 1.5em;
-        padding: 0.5em 3em;
-        color: $white;
-        font-weight: 600;
-        background-color: $gold;
-        border: none;
-        border-radius: 0.5em;
-        -webkit-box-shadow: 0px 0px 5px 2px $normal;
-        -moz-box-shadow: 0px 0px 5px 2px $normal;
-        box-shadow: 0px 0px 5px 2px $normal;
+        background-color: $blue;
+    }
+
+    h1{
+        margin-top: 1em;
+    }
+
+    h2{
+        font-size: 1em;
     }
 }
 
@@ -151,232 +204,134 @@ nav {
             width: 280px;
             height: fit-content;
             margin-bottom: 2em;
-            padding: 1em;
-            border-radius: 1em;
-
-            background-color: $normal;
             text-align: center;
-            color: $white;
+            color: $normal;
 
             h1{
                 font-size: 1.5em;
                 margin: 0 0 0.5em 0;
+                padding-bottom: 0.5em;
+                border-bottom: 2px solid $normal;
             }
-            
-            form {
-                background-color: $light;
-                padding: 1em;
-                border-radius: 1em;
-
-                label {
-                    display: block;
-                    text-align: left;
-                    font-weight: 1000;
-                    color: $dark;
-                }
-
-                input {
-                    box-sizing: border-box;
-                    width: 100%;
-                    margin-bottom: 1em;
-                    padding: 0.5em;
-                    font-size: 0.9em;
-                    border: 1px solid $dark;
-                    border-radius: 0.5em;
-                }
-
-                input[type=submit]{
-                    font-size: 1em;
-                    margin-bottom: 0;
-                    border: none;
-                    padding: 0.25em 1.0em;
-                    font-weight: 550;
-                    background-color: $dark;
-                    border-radius: 1em;
-                    color: white;
-                }
-
-                input[type=submit]:hover {
-                    color: $normal;
-                    cursor: pointer;
-                }
-            }
-
         }
     }
 }
 
+form {
+    border-radius: 1em;
 
+    label {
+        display: block;
+        text-align: left;
+        font-weight: 1000;
+        color: $normal;
+    }
 
+    input, select {
+        box-sizing: border-box;
+        width: 100%;
+        margin-bottom: 1em;
+        padding: 0.5em;
+        font-size: 0.9em;
+        border: 1px solid $normal;
+        border-radius: 0.5em;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
+    button {
+        font-size: 1.25em;
+        width: 100%;
+    }
+}
 
 .portfolio {
     margin-top: 2em;
 
-    h1 {
-        margin: 0;
+    h1, h2{
+        display: inline;
+        margin: 0 1em 0 0;
     }
 
-    .value {
-        h1, p {
-            margin: 0 0.25em 0 0;
-            padding: 0;
-            display: inline;
-        }
-
-        h1 {
-            font-size: 1.5em;
-        }
+    h2 {
+        color: $blue;
     }
 
     .ranges {
-        display: inline;
         float: right;
-        margin-top: -1.75em;
-    
+        margin-top: 0.75em;
+
         @media screen and (max-width: $small) {
             display: block;
-            margin-top: 0;
+            margin-top: 0.5em;
+            text-align: center;
             float: none;
         }
 
         button {
-            width: 4em;
-            background-color: grey;
-            padding: 0.25em 0.5em;
-            border: none;
-            border-right: 1px solid white;
+            font-size: 1em;
+            margin-right: 0.1em;
+            border-radius: 0;
         }
-    }
 
-    .graph {
-        margin-top: 0.25em;
-        margin-bottom: 2em;
+        button:hover{
+            color: $light;
+            cursor: pointer;
+        }
+
+        .active {
+            font-weight: 600;
+            text-decoration: underline;
+        }
     }
 
     .investments {
-        h1 {
-            display: inline;
-        }
+        margin-top: 2em;
 
-        .buttons {
-            display: inline;
-            float: right;
-            margin-top: 1em;
-        
-            @media screen and (max-width: $small) {
-                display: block;
-                margin-top: 0;
-                float: none;
-            }
-    
-            button {
-                width: 10em;
-                background-color: grey;
-                padding: 0.25em 0.5em;
-                border: none;
-                border-right: 1px solid white;
-            }
-
-            button:hover{
-                color: blue;
-            }
+        .buy-button {
+            font-size: 1.15em;
+            background-color: $blue;
+            margin-bottom: 0.25em;
         }
 
         table {
-            margin-top: 0.25em;
-            margin-bottom: 2em;
-
             display: block;
             overflow-x: auto;
-
-            text-align: left;
-            color: black;
+            text-align: center;
+            color: $normal;
             border-collapse: collapse;
 
             th{
-                background-color: aqua;
+                background: $normal;
+                color: $white;
             }
     
             tr{
-                background-color: lightblue;
+                background-color: $light;
             }
     
             tr:nth-child(even) {
-                background-color: white;
+                background-color: $white;
             }
     
             td, th {
                  padding: 0.5em 1em;
             }
+
+            button {
+                background-color: $red;
+                font-size: 0.9em;
+            }
         }
     }
 }
 
-.modal-background {
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    // overflow: auto;
-    background-color: rgba(0,0,0,0.5);
 
-    .modal {
-        margin: 5% auto;
-        width: 80%;
-    }
 
-    .modal-header{
-        position: relative;
-        background-color: aqua;
-        color: white;
-        text-align: center;
-        padding: 0.5em;
 
-        button {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: rgba(0,0,0,0);
-            color: black;
-            font-size: 1.5em;
-            padding: 0.25em;
-            border: none;
-        }
 
-        button:hover{
-            cursor: pointer;
-            color: darkgray;
-        }
-    }
 
-    .modal-body{
-        background-color: white;
-        padding: 1em;
-    }
-}
 
-.increase {
-    color: green;
-}
 
-.decrease {
-    color: red;
-}
+
 
 .optimise {
     margin-top: 2em;
@@ -400,77 +355,36 @@ nav {
 
         .settings {
             width: 75%;
-            background-color: white;
-            border: 2px solid aqua;
-            border-radius: 1em;
-            padding: 1em;
 
             h1 {
-                margin: 0;
                 text-align: center;
+                padding-bottom: 0.5em;
+                border-bottom: 2px solid $normal;
             }
 
-            label {
-                display: inline-block;
-                font-size: 1.15em;
-                font-weight: 1000;
-                margin-right: 1em;
+            form {
+                border-radius: 0;
                 margin-top: 1em;
-                width: 35%;
-            }
+                padding-bottom: 1em;
+                border-bottom: 2px solid $normal;
 
-            select {
-                font-size: 1em;
-                width: 100%;
-            }
+                .tickers { 
+                    margin-bottom: 1em;
 
-            .visualise-button {
-                display: block;
-                margin-top: 2em;
-                width: 100%;
-                padding: 1em;
-                font-size: 1em;
-                color: white;
-                background-color: aqua;
-                border: none;
-                font-weight: 1000;
-            }
+                    .ticker {
+                        background-color: $normal;
+                        padding: 0.25em 0.5em;
+                        color: $white;
 
-            .visualise-button:hover{
-                cursor: pointer;
-                color: darkgray;
-            }
+                        button {
+                            width: fit-content;
+                            float: none;
+                            margin-left: 0.5em;
+                            color: $light;
+                        }
 
-            .tickers {                
-                .top-box{
-                    margin-bottom: 0.5em;
-                }
-
-                span {
-                    margin: 0.25em 0.5em;
-                    background-color: aqua;
-                    color: white;
-                    padding: 0.15em 0.75em;
-                    border-radius: 1em;
-                    font-weight: 1000;
-
-                    button {
-                        background-color: rgba(0,0,0,0);
-                        border: none;
-                        color: lightgray;
-                        font-weight: 600;
-                        font-size: 1.25em;
-                        padding: 0.25em 0.25em;
+                        margin-right: 1em;
                     }
-
-                    button:hover {
-                        color: darkgray;
-                        cursor: pointer;
-                    }
-                }
-
-                span:first-of-type{
-                    margin-left: 0;
                 }
             }
         }
@@ -478,13 +392,14 @@ nav {
 
     .modal-body {
         h1{
-            font-size: 1.5em;
+            font-size: 1.25em;
             margin: 0;
             text-align: center;
         }
 
         h2 {
             margin: 0;
+            font-size: 1.15em;
         }
 
         ul {
@@ -494,23 +409,14 @@ nav {
             padding: 0 2em;
 
             li {
-                font-size: 1.15em;
+                font-size: 1em;
             }
         }
 
         button {
             width: 100%;
-            padding: 0.5em;
-            background-color: aqua;
-            color: white;
-            font-weight: 550;
-            font-size: 1em;
-            border: none;
-        }
-
-        button:hover {
-            color: darkgray;
-            cursor: pointer;
+            font-size: 1.25em;
+            margin-top: 1em;
         }
     }
 }

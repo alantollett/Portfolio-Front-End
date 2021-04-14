@@ -1,35 +1,31 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class Navigation extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-
-    render = () => {
-        const {user, openPage, logout} = this.props;
-
-        return (
-            <nav>
-                <div className="wrapper"> 
-                    <button onClick={() => openPage("home")} className="home-button">
-                        PORTFOLIO OPTIMISER
-                    </button>
-                    
-                    <div className="right">
-                        {user ? 
-                            <>
-                                <button onClick={() => openPage("portfolio")}>My Portfolio</button>
-                                <button onClick={() => openPage("optimise")} >Optimise</button>
-                                <button onClick={() => logout()}>Logout</button>
-                            </>
-                        : 
-                            <button onClick={() => openPage("account")}>Login</button>
-                        }
-                    </div>
+export default function Navigation(props){
+    return (
+        <nav>
+            <div className="wrapper"> 
+                <button onClick={() => props.openPage("home")} className="home-button">
+                    PORTFOLIO OPTIMISER
+                </button>
+                
+                <div className="right">
+                    {props.user ? 
+                        <>
+                            <button onClick={() => props.openPage("portfolio")}>My Portfolio</button>
+                            <button onClick={() => props.openPage("optimise")} >Optimise</button>
+                            <button onClick={() => props.logout()}>Logout</button>
+                        </>
+                    : 
+                        <button onClick={() => props.openPage("account")}>Login</button>
+                    }
                 </div>
-            </nav>
-        )
-    }
-}
+            </div>
+        </nav>
+    )
+};
+
+Navigation.propTypes = {
+    openPage: PropTypes.func.isRequired,
+    user: PropTypes.object,
+    logout: PropTypes.func
+};

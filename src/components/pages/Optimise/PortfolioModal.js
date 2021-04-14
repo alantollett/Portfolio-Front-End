@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Modal from '../../Modal';
 import axios from 'axios';
 
@@ -11,6 +12,8 @@ export default class PortfolioModal extends React.Component {
         };
     }
 
+    // when opened start loading user investments, once done
+    // calculate the required investments to obtain portfolio
     componentDidMount(){
         axios.get('http://localhost:80/user/investments', {
             headers: { Authorization: `Bearer ${this.props.user.token}`}
@@ -23,13 +26,12 @@ export default class PortfolioModal extends React.Component {
     }
 
     // https://www.geeksforgeeks.org/gcd-two-array-numbers/
-    // Function to return gcd of a and b
     gcd(a, b) {
         if (a === 0) return b;
         return this.gcd(b % a, a);
     }
-    
-    // Function to find gcd of array of numbers
+
+    // https://www.geeksforgeeks.org/gcd-two-array-numbers/
     findGCD(arr) {
         let result = arr[0];
         for (let i = 1; i < arr.length; i++) {
@@ -93,6 +95,7 @@ export default class PortfolioModal extends React.Component {
         }
     }
 
+    // update user investments to equal the portfolio
     obtainPortfolio = async () => {
         const {closeFunc, popUp, user} = this.props;
         const investments = this.state.investmentsRequired;
@@ -116,7 +119,7 @@ export default class PortfolioModal extends React.Component {
         
         return (
             <Modal closeFunc={closeFunc} title="Obtain Portfolio">
-                {!userInvestments ? <div className="loading">Downloading Investments Data...</div> : (
+                {!userInvestments ? <div className="loading">Calculating...</div> : (
                     <>
                     <h1>To obtain this portfolio you must...</h1>
 
@@ -124,7 +127,9 @@ export default class PortfolioModal extends React.Component {
                         <>
                         <h2>Buy...</h2>
                         <ul>
-                            {toBuy.map(inv => <li className="green">{inv.numShares} share(s) in {inv.ticker}.</li>)}
+                            {toBuy.map((inv, index) => 
+                                <li key={index} className="green">{inv.numShares} share(s) in {inv.ticker}.</li>
+                            )}
                         </ul>
                         </>
                     )}
@@ -133,7 +138,9 @@ export default class PortfolioModal extends React.Component {
                         <>
                         <h2>And Sell...</h2>
                         <ul>
-                            {toSell.map(inv => <li className="red">{Math.abs(inv.numShares)} share(s) in {inv.ticker}.</li>)}
+                            {toSell.map((inv, index) => 
+                                <li key={index} className="red">{Math.abs(inv.numShares)} share(s) in {inv.ticker}.</li>
+                            )}
                         </ul>
                         </>
                     )}
@@ -146,3 +153,9 @@ export default class PortfolioModal extends React.Component {
         
     }
 }
+
+PortfolioModal.propTypes = {
+    popUp: PropTypes.func.isRequired,
+    closeFunc: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired,
+};

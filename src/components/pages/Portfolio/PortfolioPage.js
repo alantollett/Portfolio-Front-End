@@ -1,20 +1,16 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import MyInvestments from './MyInvestments';
+import MyPortfolio from './MyPortfolio';
 
-import PortfolioGraph from './PortfolioGraph';
-import Investments from './Investments';
+export default function PortfolioPage(props){
+    const {user, popUp} = props;
 
-export default class PortfolioPage extends React.Component {
-    render = () => {
-        const {user, popUp} = this.props;
-
-        return (
-            <div className="portfolio wrapper">
-                <PortfolioGraph user={user}/>
-                <Investments user={user} popUp={popUp}/>
-            </div>
-        );
-    }
+    return (
+        <div className="portfolio wrapper">
+            <MyPortfolio user={user}/>
+            <MyInvestments user={user} popUp={popUp}/>
+        </div>
+    );
 }
 
 PortfolioPage.propTypes = {

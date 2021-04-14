@@ -16,26 +16,43 @@ export default class RegisterForm extends React.Component {
     handleChange = (e) => {
         this.setState({[e.target.name]: e.target.value});
     }
+
+    areInputsValid = () => {
+        const {email, email2, password, password2} = this.state;
+        const {popUp} = this.props;
+
+        // ensure user has inputted two matching emails
+        if(email == null || email2 == null || email !== email2) {
+            popUp("Please enter two matching emails.", true);
+            return false;
+        }
+
+        // ensure user has inputted two matching passwords
+        if(password == null || password2 == null || password !== password2) {
+            popUp("Please enter two matching passwords.", true);
+            return false;
+        }
+
+        // ensure password matches the requirements
+        var passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
+        if(!passwordRegex.test(password)) {
+            popUp("Your password must contain at least one uppercase, lowercase, and numerical character, and be at least 8 characters long.", true);
+            return false;
+        } 
+
+        return true;
+    }
     
     registerUser = (e) => {
         e.preventDefault();
-        const {password, password2, email, email2} = this.state;
         const {popUp} = this.props;
+        const {email, password} = this.state;
 
         // validate form inputs
-        var passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
-        if(password == null) return popUp("You must enter a password", true);
-        if(password2 == null) return popUp("You must confirm your password", true);
-        if(password !== password2) return popUp("Passwords must match.", true);
-        if(!passwordRegex.test(password)) return popUp("Your password must: \n- contain at least one uppercase character, \n- contain at least one lowercase character, \n- contain at least one number, \n- be at least 8 characters long.", true);
-        if(email == null) return popUp("You must enter an email.", true);
-        if(email2 == null) return popUp("You must confirm your email.", true);
+        if(!this.areInputsValid()) return;
         
         // create a user object from the form
-        const user = {
-            email: this.state.email,
-            password: this.state.password
-        };
+        const user = {email: email, password: password};
 
         // post the form data to /register.
         // the server then sends an email to the user with a verification link.
@@ -43,12 +60,12 @@ export default class RegisterForm extends React.Component {
         .then((res) => {
             popUp('Please check your email to verify your account.', false);
         }).catch(err => {
+            if(!err.response) return popUp('Failed to connect to server, please try again soon.', true);
+            
             const status = err.response.status;
-            if(status === 409){
-                popUp('An account with that email address already exists.', true);
-            }else if(status === 500){
-                popUp('Internal Server Error, please contact alantollett@outlook.com.', true);
-            }
+            if(status === 409) return popUp('An account with that email address already exists.', true);
+            if(status === 500) return popUp('Internal Server Error, please contact alantollett@outlook.com.', true);
+            return popUp('Unknown Error, please contact alantollett@outlook.com.', true);
         });
     }
 

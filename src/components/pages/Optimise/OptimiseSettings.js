@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Tickers from './Tickers';
 import Axis from './Axis';
 
-export default class OptimisePage extends React.Component {
+export default class OptimiseSettings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -10,22 +11,24 @@ export default class OptimisePage extends React.Component {
             x: 'standardDeviation',
             y: 'expectedDividendYield',
             z: 'expectedReturn',
-            colour: 'priceToBook',
+            optimalOnly: true,
         };
     }
 
     handleChange = (e) => {
-        if(e.target.name === 'tickers'){
+        if(e.target.name === 'ticker'){
             const tickers = this.state.tickers;
-            tickers.add(e.target.value);
 
-            const max = 3;
-            if(tickers.length > max){
-                this.props.displayError(`You can only add ${max} stocks to a portfolio.`);
+            const max = 5;
+            if(tickers.size === max){
+                this.props.popUp(`You can only add ${max} stocks to a portfolio.`, true);
             }else {
+                tickers.add(e.target.value);
                 this.setState({tickers: tickers});
             }
-        }else {
+        } else if(e.target.name === 'optimalOnly'){
+            this.setState({optimalOnly: !e.target.checked});
+        } else {
             this.setState({[e.target.name]: e.target.value});
         }
     }
@@ -43,27 +46,38 @@ export default class OptimisePage extends React.Component {
             x: this.state.x,
             y: this.state.y,
             z: this.state.z,
-            // colour: this.state.colour,
+            optimalOnly: this.state.optimalOnly
         });
     }
 
     render = () => {
         const {tickers} = this.state;
-        const {updateSettings} = this.props;
+
         return (
             <div className="settings grid-item">
                 <h1>Settings</h1>
 
                 <form>
                     <Tickers tickers={tickers} handleChange={this.handleChange} removeTicker={this.removeTicker}/>
-                    <Axis name="x" selected="0" handleChange={this.handleChange}/>
-                    <Axis name="y" selected="1" handleChange={this.handleChange}/>
-                    <Axis name="z" selected="2" handleChange={this.handleChange}/>
-                    {/* <Axis name="colour" selected="3" handleChange={this.handleChange}/> */}
+                    <Axis name="x" selected={0} handleChange={this.handleChange}/>
+                    <Axis name="y" selected={1} handleChange={this.handleChange}/>
+                    <Axis name="z" selected={2} handleChange={this.handleChange}/>
+                    
+                    <label style={{display: "inline", marginRight: "1em"}}>Display Non-Optimal Portfolios</label>
+                    <input 
+                        style={{width: "fit-content", transform: "scale(1.5)"}} 
+                        type="checkbox" name="optimalOnly" 
+                        onChange={this.handleChange}
+                    />
 
-                    <button class="optimise-button" onClick={this.loadVisualisation}>View Optimal Portfolios</button>
+                    <button className="optimise-button" onClick={this.loadVisualisation}>View Optimal Portfolios</button>
                 </form>
             </div>
         );
     }
 }
+
+OptimiseSettings.propTypes = {
+    popUp: PropTypes.func.isRequired,
+    updateSettings: PropTypes.func.isRequired,
+};

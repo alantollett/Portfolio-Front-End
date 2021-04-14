@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import Modal from '../../Modal';
+import CompaniesSelect from '../../CompaniesSelect';
 
 export default class BuyModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
-            tickers: ['AAPL', 'AMZN', 'ZM', 'TSLA', 'NKE'],
             ticker: null,
             numShares: 0,
         };
@@ -45,18 +45,12 @@ export default class BuyModal extends React.Component {
     }
 
     render() {
-        const {tickers} = this.state;
         const {closeFunc} = this.props;
 
         return (
             <Modal closeFunc={closeFunc} title="Buy Share(s)">
                 <form>
-                    <label>Ticker</label>
-                    <select name="ticker" onChange={this.handleChange}>
-                        <option value="Select Ticker">Select Ticker</option>
-                        {tickers.map(ticker => <option value={ticker}>{ticker}</option>)}
-                    </select>
-
+                    <CompaniesSelect handleChange={this.handleChange}/>
                     <label>Number of Shares</label>
                     <input type="number" name="numShares" min="1" onChange={this.handleChange}/>
 

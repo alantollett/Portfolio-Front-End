@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Plot from 'react-plotly.js';
 import axios from 'axios';
 
-export default class PortfolioGraph extends React.Component {
+export default class MyPortfolio extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -13,11 +13,7 @@ export default class PortfolioGraph extends React.Component {
         };
     }
 
-    componentDidMount(){    
-        this.updateWorths();
-    }
-
-    updateWorths = () => {
+    componentDidMount(){
         axios.get('http://localhost:80/user/worths', {
             headers: { Authorization: `Bearer ${this.props.user.token}`}
         }).then(res => {
@@ -55,7 +51,7 @@ export default class PortfolioGraph extends React.Component {
         return worths.filter(worth => {
             const worthDate = new Date(worth.date);
 
-            // filter if value is from the weekend...
+            // remove if value is from the weekend...
             if(worthDate.getDay() === 0 || worthDate.getDay() === 6){
                 return false;
             }
@@ -65,30 +61,25 @@ export default class PortfolioGraph extends React.Component {
         });
     } 
 
-    changeRange = (range) => {
-        this.setState({range: range});
-        this.updateWorths();
-    }
+    changeRange = (range) => this.setState({range: range});
 
     render = () => {
-        const {error, range} = this.state;
+        const {error, range, worths} = this.state;
 
         if(error){
             return <div>{error.message}</div>
-        } else if (!this.state.worths){
-            return <div>Downloading Portfolio Data...</div>;
-        } else if(this.state.worths.length === 0){
-            return (
-                <>
-                <h1>My Portfolio</h1>
-                <h2>No data yet...</h2>
-                </>
-            );
-        
+        } else if (!worths){
+            return <><h1>My Portfolio</h1><h2>Loading...</h2></>;
+        } else if(worths.length === 0){
+            return <><h1>My Portfolio</h1><h2>No data yet...</h2></>;
         } else{
-            const worths = this.getWorthsFiltered();
-            var dates = worths.map(worth => worth.date);
-            var amounts = worths.map(worth => worth.amount);
+            // get data filtered by the range
+            const filteredWorths = this.getWorthsFiltered();
+            var dates = filteredWorths.map(worth => new Date(worth.date));
+            var amounts = filteredWorths.map(worth => worth.amount);
+
+            // color based upon whether value has gone up/down since start of range
+            const color = amounts[0] > amounts[amounts.length - 1] ? "red" : "green";
 
             return (
                 <>
@@ -110,6 +101,7 @@ export default class PortfolioGraph extends React.Component {
                             y: amounts,
                             type: 'scatter',
                             mode: 'markers&lines',
+                            line: {color: color},
                             text: amounts,
                             hovertemplate: "<b>%{x}<br>$%{y}</b>"
                             + "<extra></extra>"
@@ -132,6 +124,6 @@ export default class PortfolioGraph extends React.Component {
     }
 }
 
-PortfolioGraph.propTypes = {
+MyPortfolio.propTypes = {
     user: PropTypes.object.isRequired
 };

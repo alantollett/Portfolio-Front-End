@@ -48,6 +48,7 @@ export default class App extends React.Component {
         }, 4000);
     }
 
+    // removes the specified popUp
     removePopUp = (popUp) => {
         var popUps = this.state.popUps;
         if(popUps.includes(popUp)) {
@@ -62,9 +63,11 @@ export default class App extends React.Component {
         return (
             <>
             <Navigation user={user} openPage={this.openPage} page={currentPage} logout={this.logout}/>
-            {popUps ? popUps.map(popUp => <PopUp closeEarly={this.removePopUp}>{popUp}</PopUp>) : null}
+            {popUps ? popUps.map((popUp, index) => 
+                <PopUp key={index} closeEarly={this.removePopUp}>{popUp}</PopUp>) 
+            : null}
 
-            {currentPage === "home" ? <HomePage/> : null}
+            {currentPage === "home" ? <HomePage openPage={this.openPage}/> : null}
 
             {currentPage === "account" ? 
                 <AccountPage login={this.login} popUp={this.addPopUp} openPage={this.openPage}/> 
@@ -76,6 +79,3 @@ export default class App extends React.Component {
         )
     }
 }
-
-
-

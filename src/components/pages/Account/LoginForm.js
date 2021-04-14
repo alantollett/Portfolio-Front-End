@@ -32,14 +32,12 @@ export default class LoginForm extends React.Component {
             login(res.data.shortAccessToken, res.data.fullAccessToken);
             openPage('portfolio');
         }).catch(err => {
+            if(!err.response) return popUp('Failed to connect to server, please try again soon.', true);
+
             const status = err.response.status;
-            if(status === 404 || status === 401){
-                popUp('The account information you provided is incorrect.', true);
-            }else if(status === 412){
-                popUp('You must verify your email before logging in.', true);
-            }else if(status === 500){
-                popUp('Internal Server Error, please contact alantollett@outlook.com.', true);
-            }
+            if(status === 404 || status === 401) return popUp('The account information you provided is incorrect.', true);
+            if(status === 412) return popUp('You must verify your email before logging in.', true);
+            return popUp('Unknown Error, please contact alantollett@outlook.com.', true);
         });
     }
 

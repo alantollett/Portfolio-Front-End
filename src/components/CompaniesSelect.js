@@ -33,10 +33,13 @@ export default class CompaniesSelect extends React.Component {
                 {!companies ? 
                     <p>Loading Companies...</p>
                 :
-                    <select name="ticker" onChange={handleChange}>
+                    <>
+                    <input name="ticker" list="companies" onChange={handleChange}/>
+                    <datalist id="companies">
                         <option value="Select Ticker">Select Company</option>
                         {companies.map((c, index) => <option key={index} value={c.Symbol}>{c.Name}</option>)}
-                    </select>
+                    </datalist>
+                    </>
                 }
                 </>
             );

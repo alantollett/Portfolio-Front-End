@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import visualisation from './visualisation.png';
+import visualisation from './visualisation.mp4';
 
 export default function HomePage(props){
     const {openPage} = props;
@@ -11,7 +11,9 @@ export default function HomePage(props){
                 <span className="blue"> optimal</span> porfolios...
             </h2>
 
-            <img src={visualisation} alt="VisualisationImage"/>
+            <video autoPlay loop muted>
+                <source src={visualisation} type="video/mp4"/>
+            </video>
 
             <button onClick={() => openPage('account')}>Start Investing Now!</button>
         </div>

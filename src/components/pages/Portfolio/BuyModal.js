@@ -34,7 +34,7 @@ export default class BuyModal extends React.Component {
         };
 
         // post the form data to /investment
-        axios.post(`http://localhost:80/user/investments`, {investment}, {
+        axios.post(`${process.env.REACT_APP_API_PATH}/user/investments`, {investment}, {
             headers: { Authorization: `Bearer ${user.token}`}
         }).then((res) => {
             closeFunc();

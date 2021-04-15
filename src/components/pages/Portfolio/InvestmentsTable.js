@@ -9,7 +9,7 @@ export default class InvestmentsTable extends React.Component {
         const {user, popUp, updateInvestments} = this.props;
         const investment = {ticker: ticker, numShares: -1};
 
-        axios.post(`http://localhost:80/user/investments`, {investment}, {
+        axios.post(`${process.env.REACT_APP_API_PATH}/user/investments`, {investment}, {
             headers: { Authorization: `Bearer ${user.token}`}
         }).then((res) => {
             popUp('Share(s) Sold Successfully', false);

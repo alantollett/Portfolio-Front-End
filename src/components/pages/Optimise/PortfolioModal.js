@@ -15,7 +15,7 @@ export default class PortfolioModal extends React.Component {
     // when opened start loading user investments, once done
     // calculate the required investments to obtain portfolio
     componentDidMount(){
-        axios.get('http://localhost:80/user/investments', {
+        axios.get(`${process.env.REACT_APP_API_PATH}/user/investments`, {
             headers: { Authorization: `Bearer ${this.props.user.token}`}
         }).then(res => {
             this.setState({userInvestments: res.data});
@@ -102,7 +102,7 @@ export default class PortfolioModal extends React.Component {
 
         for(var investment of investments){
             // post the form data to /investment
-            await axios.post(`http://localhost:80/user/investments`, {investment}, {
+            await axios.post(`${process.env.REACT_APP_API_PATH}/user/investments`, {investment}, {
                 headers: { Authorization: `Bearer ${user.token}`}
             }).catch(err => {
                 console.log(err);

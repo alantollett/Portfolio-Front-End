@@ -13,7 +13,7 @@ export default class CompaniesSelect extends React.Component {
     
     // load a list of possible companies (names and tickers) 
     componentDidMount(){
-        axios.get('http://localhost:80/data/companies').then(res => {
+        axios.get(`${process.env.REACT_APP_API_PATH}/data/companies`).then(res => {
             this.setState({companies: res.data});
         }).catch(err => {
             this.setState({error: err});

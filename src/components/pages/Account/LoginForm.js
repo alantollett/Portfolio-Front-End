@@ -27,7 +27,7 @@ export default class LoginForm extends React.Component {
 
         // post the form data to /login.
         // the result is a json web token which represents the full user object.
-        axios.post(`http://localhost:80/user/login`, {user}, {crossDomain: false})
+        axios.post(`${process.env.REACT_APP_API_PATH}/user/login`, {user}, {crossDomain: false})
         .then((res) => {
             login(res.data.shortAccessToken, res.data.fullAccessToken);
             openPage('portfolio');

@@ -14,7 +14,7 @@ export default class MyPortfolio extends React.Component {
     }
 
     componentDidMount(){
-        axios.get('http://localhost:80/user/worths', {
+        axios.get(`${process.env.REACT_APP_API_PATH}/user/worths`, {
             headers: { Authorization: `Bearer ${this.props.user.token}`}
         }).then(res => {
             this.setState({worths: res.data});

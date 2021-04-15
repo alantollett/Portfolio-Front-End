@@ -20,7 +20,7 @@ export default class MyInvestments extends React.Component {
 
     updateInvestments = () => {
         this.setState({investments: null});
-        axios.get('http://localhost:80/user/investments', {
+        axios.get(`${process.env.REACT_APP_API_PATH}/user/investments`, {
             headers: { Authorization: `Bearer ${this.props.user.token}`}
         }).then(res => {
             this.setState({investments: res.data});

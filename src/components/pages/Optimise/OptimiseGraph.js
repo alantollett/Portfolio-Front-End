@@ -28,7 +28,7 @@ export default class OptimiseGraph extends React.Component {
         params.append('tickers', tickers);
 
         // request portfolio data
-        axios.get('http://localhost:80/data/portfolios', {
+        axios.get(`${process.env.REACT_APP_API_PATH}/data/portfolios`, {
             headers: { Authorization: `Bearer ${user.token}`},
             params: params
         }).then(res => {

@@ -34,9 +34,9 @@ export default class RegisterForm extends React.Component {
         }
 
         // ensure password matches the requirements
-        var passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
+        var passwordRegex = new RegExp("^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
         if(!passwordRegex.test(password)) {
-            popUp("Your password must contain at least one uppercase, lowercase, and numerical character, and be at least 8 characters long.", true);
+            popUp("Your password must contain at least one symbol, uppercase, and numerical character, and be at least 8 characters long.", true);
             return false;
         } 
 

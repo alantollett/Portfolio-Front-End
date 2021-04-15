@@ -33,13 +33,10 @@ export default class CompaniesSelect extends React.Component {
                 {!companies ? 
                     <p>Loading Companies...</p>
                 :
-                    <>
-                    <input name="ticker" list="companies" onChange={handleChange}/>
-                    <datalist id="companies">
+                    <select name="ticker" onChange={handleChange}>
                         <option value="Select Ticker">Select Company</option>
                         {companies.map((c, index) => <option key={index} value={c.Symbol}>{c.Name}</option>)}
-                    </datalist>
-                    </>
+                    </select>
                 }
                 </>
             );
@@ -50,7 +47,3 @@ export default class CompaniesSelect extends React.Component {
 CompaniesSelect.propTypes = {
     handleChange: PropTypes.func.isRequired,
 };
-
-
-
-

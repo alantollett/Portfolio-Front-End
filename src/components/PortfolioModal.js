@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Modal from '../../Modal';
+import Modal from './Modal';
 import axios from 'axios';
 
 export default class PortfolioModal extends React.Component {
@@ -115,34 +115,36 @@ export default class PortfolioModal extends React.Component {
 
     render() {
         const {toBuy, toSell, userInvestments} = this.state;
-        const {closeFunc} = this.props;
+        const {closeFunc, portfolio} = this.props;
         
         return (
             <Modal closeFunc={closeFunc} title="Obtain Portfolio">
                 {!userInvestments ? <div className="loading">Calculating...</div> : (
                     <>
-                    <h1>To obtain this portfolio you must...</h1>
+                    <h2>Portfolio Details</h2>
+                    <ul>
+                        <li>Expected Return: {portfolio.expectedReturn}</li>
+                        <li>Dividend Yield: {portfolio.expectedDividendYield}</li>
+                        <li>Standard Deviation: {portfolio.standardDeviation}</li>
+                        <li>Price to Book Value: {portfolio.priceToBook}</li>
+                    </ul>
+
+                    <h2>To obtain this portfolio...</h2>
 
                     {!toBuy || toBuy.length === 0  ? <h2>Buy Nothing!</h2> : (
-                        <>
-                        <h2>Buy...</h2>
                         <ul>
                             {toBuy.map((inv, index) => 
-                                <li key={index} className="green">{inv.numShares} share(s) in {inv.ticker}.</li>
+                                <li key={index} className="green">+ {inv.numShares} share(s) in {inv.ticker}.</li>
                             )}
                         </ul>
-                        </>
                     )}
 
                     {!toSell || toSell.length === 0 ? <h2>And Sell Nothing!</h2> : (
-                        <>
-                        <h2>And Sell...</h2>
                         <ul>
                             {toSell.map((inv, index) => 
-                                <li key={index} className="red">{Math.abs(inv.numShares)} share(s) in {inv.ticker}.</li>
+                                <li key={index} className="red">- {Math.abs(inv.numShares)} share(s) in {inv.ticker}.</li>
                             )}
                         </ul>
-                        </>
                     )}
 
                     <button onClick={this.obtainPortfolio}>Obtain Portfolio</button>

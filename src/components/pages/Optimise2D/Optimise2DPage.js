@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import OptimiseGraph from './OptimiseGraph';
-import OptimiseSettings from './OptimiseSettings';
+import Settings from './Settings';
+import Visualisation from './Visualisation';
 
-export default class OptimisePage extends React.Component {
+export default class Optimise2DPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,8 +12,8 @@ export default class OptimisePage extends React.Component {
     }
 
     updateSettings = (settings) => {
-        if(settings.tickers.size === 0 || !settings.x || !settings.y || !settings.z) {
-            this.props.popUp('You must select 1 or more tickers and a value for each axis.', true);
+        if(settings.tickers.size === 0) {
+            this.props.popUp('You must select 1 or more tickers.', true);
             return;
         }
 
@@ -25,16 +25,16 @@ export default class OptimisePage extends React.Component {
     }
 
     render = () => {
-        const {user, popUp} = this.props;
+        const {popUp, user} = this.props;
         const {settings} = this.state;
 
         return (
             <div className="optimise wrapper">    
                 <div className="grid">
-                    <OptimiseSettings updateSettings={this.updateSettings} popUp={popUp}/>
+                    <Settings updateSettings={this.updateSettings} popUp={popUp}/>
 
                     {settings ? 
-                        <OptimiseGraph
+                        <Visualisation
                             user={user} 
                             settings={settings}
                             popUp={popUp}
@@ -46,7 +46,7 @@ export default class OptimisePage extends React.Component {
     }
 }
 
-OptimisePage.propTypes = {
+Optimise2DPage.propTypes = {
     popUp: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired
 };

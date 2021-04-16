@@ -12,7 +12,8 @@ export default function Navigation(props){
                     {props.user ? 
                         <>
                             <button onClick={() => props.openPage("portfolio")}>My Portfolio</button>
-                            <button onClick={() => props.openPage("optimise")} >Optimise</button>
+                            <button onClick={() => props.openPage("optimise2d")} >Optimise 2D</button>
+                            <button onClick={() => props.openPage("optimise3d")} >Optimise 3D</button>
                             <button onClick={() => props.logout()}>Logout</button>
                         </>
                     : 

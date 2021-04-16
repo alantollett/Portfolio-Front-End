@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Tickers from './Tickers';
-import Axis from './Axis';
+import Tickers from '../../Tickers';
+import Axis from '../../Axis';
 
-export default class OptimiseSettings extends React.Component {
+export default class Settings extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -77,7 +77,7 @@ export default class OptimiseSettings extends React.Component {
     }
 }
 
-OptimiseSettings.propTypes = {
+Settings.propTypes = {
     popUp: PropTypes.func.isRequired,
     updateSettings: PropTypes.func.isRequired,
 };

@@ -6,7 +6,8 @@ import PopUp from './components/PopUp';
 import HomePage from './components/pages/Home/HomePage';
 import AccountPage from './components/pages/Account/AccountPage';
 import PortfolioPage from './components/pages/Portfolio/PortfolioPage';
-import OptimisePage from './components/pages/Optimise/OptimisePage';
+import Optimise2DPage from './components/pages/Optimise2D/Optimise2DPage';
+import Optimise3DPage from './components/pages/Optimise3D/Optimise3DPage';
 
 export default class App extends React.Component {
     constructor(props) {
@@ -74,7 +75,8 @@ export default class App extends React.Component {
             : null}
 
             {currentPage === "portfolio" ? <PortfolioPage user={user} popUp={this.addPopUp}/> : null}
-            {currentPage === "optimise" ? <OptimisePage user={user} popUp={this.addPopUp}/> : null}
+            {currentPage === "optimise2d" ? <Optimise2DPage user={user} popUp={this.addPopUp}/> : null}
+            {currentPage === "optimise3d" ? <Optimise3DPage user={user} popUp={this.addPopUp}/> : null}
             </>
         )
     }

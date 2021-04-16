@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Plot from 'react-plotly.js';
 import axios from 'axios';
-import PortfolioModal from './PortfolioModal';
+import PortfolioModal from '../../PortfolioModal';
 
-export default class OptimiseGraph extends React.Component {
+export default class Visualisation extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,9 +26,11 @@ export default class OptimiseGraph extends React.Component {
         // create a url param object with the tickers
         const params = new URLSearchParams();
         params.append('tickers', tickers);
+        params.append('riskWeighting', settings.riskWeighting);
+        params.append('returnWeighting', settings.returnWeighting);
 
         // request portfolio data
-        axios.get(`${process.env.REACT_APP_API_PATH}/data/portfolios`, {
+        axios.get(`${process.env.REACT_APP_API_PATH}/data/portfolios2d`, {
             headers: { Authorization: `Bearer ${user.token}`},
             params: params
         }).then(res => {
@@ -43,37 +45,42 @@ export default class OptimiseGraph extends React.Component {
         const {settings} = this.props;
         const {portfolios} = this.state;
 
-        const xEff = portfolios.filter(p => p.efficient).map(p => p[settings.x]);
-        const yEff = portfolios.filter(p => p.efficient).map(p => p[settings.y]);
-        const zEff = portfolios.filter(p => p.efficient).map(p => p[settings.z]);
+        const xEff = portfolios.filter(p => p.efficient).map(p => 
+            (p.standardDeviation * settings.riskWeighting) 
+            + (p.priceToBook * (1 - settings.riskWeighting)));
+
+        const yEff = portfolios.filter(p => p.efficient).map(p => 
+            (p.expectedReturn * settings.returnWeighting) 
+            + (p.expectedDividendYield * (1 - settings.returnWeighting)));
 
         const effDataset = {
             customdata: portfolios,
             x: xEff,
             y: yEff,
-            z: zEff,
             text: portfolios.map(portfolio => portfolio.asString),
-            type: 'scatter3d',
+            type: 'scatter',
             mode: 'markers',
             marker: {color: "gold", size: 5},
-            hovertemplate: `<b>${settings.z}: %{z}%</b><br>`
-                + `<b>${settings.x}: %{x}%</b><br>`
-                + `<b>${settings.y}: %{y}%</b><br>`
+            hovertemplate: `<b>Risk: %{x}%</b><br>`
+                + `<b>Return: %{y}%</b><br>`
                 + `%{text}<br>`
-                + `<b>Click for more details.</b>`
+                + `<b>Click to buy portfolio.</b>`
                 + `<extra></extra>`
         }
 
         var datasets = [effDataset];
         if(!settings.optimalOnly){
-            const xNotEff = portfolios.filter(p => !p.efficient).map(p => p[settings.x]);
-            const yNotEff = portfolios.filter(p => !p.efficient).map(p => p[settings.y]);
-            const zNotEff = portfolios.filter(p => !p.efficient).map(p => p[settings.z]);
+            const xNotEff = portfolios.filter(p => !p.efficient).map(p => 
+                (p.standardDeviation * settings.riskWeighting) 
+                + (p.priceToBook * (1 - settings.riskWeighting)));
+    
+            const yNotEff = portfolios.filter(p => !p.efficient).map(p => 
+                (p.expectedReturn * settings.returnWeighting) 
+                + (p.expectedDividendYield * (1 - settings.returnWeighting)));
             
             var notEffDataset = JSON.parse(JSON.stringify(effDataset));
             notEffDataset.x = xNotEff;
             notEffDataset.y = yNotEff;
-            notEffDataset.z = zNotEff;
             notEffDataset.marker = {color: "blue", size: 5};
 
             datasets.push(notEffDataset);
@@ -91,7 +98,7 @@ export default class OptimiseGraph extends React.Component {
     }
 
     render = () => {
-        const {settings, popUp, user} = this.props;
+        const {popUp, user} = this.props;
         const {portfolios, error, portfolio} = this.state;
 
         if(error) {
@@ -116,20 +123,12 @@ export default class OptimiseGraph extends React.Component {
                         data={this.getDatasets()}
         
                         layout={{
-                            scene: {
-                                xaxis: { title: settings.x, autorange: "reversed"},
-                                yaxis: { title: settings.y, autorange: "reversed" },  
-                                zaxis: { title: settings.z },   
-                                camera: {
-                                    // change these based upon window width...?
-                                    center: {x: 0.05, y: 0, z: -0.15},
-                                    eye: {x: 1.3, y: 1.3, z: 0.1}
-                                }
-                            },      
-                            margin: {l: 0.1, r: 0.1, b: 0.1, t: 0.1},
+                            margin: {l: 60, r: 0, b: 60, t: 0},
                             hovermode: 'closest',
                             hoverlabel: { bgcolor: "#FFF" },
-                            showlegend: false
+                            showlegend: false,
+                            xaxis: {title: 'Risk'},
+                            yaxis: {title: 'Return'},
                         }}
         
                         onClick={(data) => {
@@ -151,7 +150,7 @@ export default class OptimiseGraph extends React.Component {
 }
 
 
-OptimiseGraph.propTypes = {
+Visualisation.propTypes = {
     popUp: PropTypes.func.isRequired,
     user: PropTypes.object.isRequired,
     settings: PropTypes.object.isRequired,

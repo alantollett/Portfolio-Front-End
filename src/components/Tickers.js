@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CompaniesSelect from '../../CompaniesSelect';
+import CompaniesSelect from './CompaniesSelect';
 
 export default class Tickers extends React.Component {
 
